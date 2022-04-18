@@ -48,6 +48,12 @@
     "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11"
   },
+  "dependencies": {
+    "@tower1229/videojs-plugin-marker": "^0.0.6",
+    "@videojs/themes": "^1.0.1",
+    "echarts": "^5.3.0",
+    "video.js": "^7.18.1"
+  },
   "devDependencies": {
     "@vant/cli": "^2.11.5",
     "babel-plugin-import": "^1.13.0",

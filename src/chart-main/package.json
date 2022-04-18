@@ -1,0 +1,8 @@
+{
+    "name": "chart",
+    "version": "0.0.1",
+    "description": "echart组件",
+    "changelog": [{
+        "title": "首个版本"
+    }]
+}
