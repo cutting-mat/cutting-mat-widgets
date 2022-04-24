@@ -49,8 +49,8 @@ module.exports = {
         title: '业务组件',
         items: [
           {
-            path: 'business-button',
-            title: 'DemoButton 按钮',
+            path: 'business-video',
+            title: 'BusinessVideo 视频',
           },
         ],
       },

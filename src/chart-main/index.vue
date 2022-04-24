@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import { report } from '../__support/report';
-/* ↑↑↑ 组件上报，勿删 ↑↑↑ */
 import * as echarts from 'echarts/core';
 import {
   DatasetComponent,
@@ -18,8 +16,6 @@ import { CanvasRenderer } from 'echarts/renderers';
 // 全局色表
 import { colors } from '../__support/variate.js';
 import datasetTrans from '../__support/dataset.js';
-
-const packageInfo = require('./package.json');
 
 echarts.use([
   DatasetComponent,
@@ -133,7 +129,6 @@ export default {
     },
   },
   created() {
-    report.send(packageInfo);
     // 预先转换数据格式
     this.sourceData = datasetTrans(this.data, this.legend);
   },
