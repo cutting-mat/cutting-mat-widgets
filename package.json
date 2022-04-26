@@ -53,7 +53,8 @@
     "@tower1229/videojs-plugin-source-switcher": "^0.0.2",
     "@videojs/themes": "^1.0.1",
     "echarts": "^5.3.0",
-    "video.js": "^7.18.1"
+    "video.js": "^7.18.1",
+    "wavesurfer.js": "^6.1.0"
   },
   "devDependencies": {
     "@vant/cli": "^2.11.5",

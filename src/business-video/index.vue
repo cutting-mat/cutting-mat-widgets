@@ -19,7 +19,7 @@ window.videojs = videojs;
 require('video.js/dist/lang/zh-CN.js');
 
 export default {
-  name: `business-video`,
+  name: `video-player`,
   props: {
     options: {
       type: Object,
@@ -44,9 +44,11 @@ export default {
     };
   },
   mounted() {
+    // 默认配置
     const options = {
       playbackRates: [0.5, 1, 1.5, 2],
       language: 'zh-CN',
+      bigPlayButton: false,
       ...this.options,
     };
 
@@ -54,18 +56,6 @@ export default {
       this.$emit('ready', player);
     });
     this.player = player;
-
-    //
-    // Create a track object.
-    const track = new videojs.VideoTrack({
-      id: 'my-alternate-video-track',
-      kind: 'commentary',
-      label: "Director's Commentary",
-      language: 'en',
-    });
-
-    // Add the track to the player's video track list.
-    player.videoTracks().addTrack(track);
 
     // 拖拽进度控制
     this.player.on('seeked', () => {
@@ -110,6 +100,10 @@ export default {
 
 <style scoped>
 /* 主题样式bug */
+.vjs-theme-fantasy >>> .vjs-volume-bar {
+  margin-top: 2em;
+}
+
 .vjs-theme-fantasy >>> .vjs-playback-rate-value {
   line-height: 54px;
 }

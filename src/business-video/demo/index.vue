@@ -1,9 +1,9 @@
 <template>
   <demo-section>
     <demo-block title="基础用法">
-      <business-video
+      <video-player
         style="width: 100%; max-width: 600px"
-        class="vjs-16-9"
+        class="vjs-fluid"
         :options="videoOptions"
         @ready="
           (player) =>
@@ -14,18 +14,33 @@
         "
       />
     </demo-block>
-    <demo-block title="视频打点">
-      <business-video
+    <demo-block title="禁止拖拽">
+      <video-player
         style="width: 100%; max-width: 600px"
-        class="vjs-16-9"
+        class="vjs-fluid"
+        :options="videoOptions"
+        :seek-able="false"
+        @ready="
+          (player) =>
+            player.src({
+              src: 'https://static.refined-x.com/static/1080p-watermark.mp4',
+              type: 'video/mp4',
+            })
+        "
+      />
+    </demo-block>
+    <demo-block title="视频打点">
+      <video-player
+        style="width: 100%; max-width: 600px"
+        class="vjs-fluid"
         :options="videoOptions"
         @ready="handleReadyMark"
       />
     </demo-block>
     <demo-block title="清晰度选择">
-      <business-video
+      <video-player
         style="width: 100%; max-width: 600px"
-        class="vjs-16-9"
+        class="vjs-fluid"
         :options="videoOptions"
         @ready="handleReadySwitch"
       />

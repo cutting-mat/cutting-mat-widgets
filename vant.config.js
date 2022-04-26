@@ -32,7 +32,7 @@ module.exports = {
         items: [
           {
             path: 'demo-button',
-            title: 'DemoButton 按钮',
+            title: '按钮',
           },
         ],
       },
@@ -50,7 +50,11 @@ module.exports = {
         items: [
           {
             path: 'business-video',
-            title: 'BusinessVideo 视频',
+            title: '视频播放',
+          },
+          {
+            path: 'business-audio',
+            title: '音频播放',
           },
         ],
       },
