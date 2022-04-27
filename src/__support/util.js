@@ -5,9 +5,9 @@
  * @return echart5-dataset格式，详见：https://echarts.apache.org/handbook/zh/concepts/dataset
  * */
 
-export default function (dataArray, legendArray) {
+export const datasetTrans = function (dataArray, legendArray) {
     // 列头
-    let colNames = ['product'].concat(dataArray.map((e, i) => {
+    const colNames = ['product'].concat(dataArray.map((e, i) => {
         return legendArray[i] || `legend_${i}`;
     }));
 
@@ -23,4 +23,11 @@ export default function (dataArray, legendArray) {
     }
 
     return [colNames].concat(source);
+}
+
+/**
+ * 生成随机DOM Id
+ * */
+export const domId = function (prefix) {
+    return `${prefix && prefix.split ? prefix.trim() : 'dom'}_${parseInt(Math.random() * 1e5, 10)}`
 }

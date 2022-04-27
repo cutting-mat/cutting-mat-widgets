@@ -15,7 +15,7 @@ import { CanvasRenderer } from 'echarts/renderers';
 
 // 全局色表
 import { colors } from '../__support/variate.js';
-import datasetTrans from '../__support/dataset.js';
+import { datasetTrans, domId } from '../__support/util.js';
 
 echarts.use([
   DatasetComponent,
@@ -106,16 +106,14 @@ export default {
   },
   data() {
     return {
-      domid: `domid-${parseInt(Math.random() * 1e8)}`,
+      domid: domId(),
       chartObj: null,
       sourceData: null,
     };
   },
   computed: {
     computedStack() {
-      return this.stack
-        ? `computedStack_${parseInt(Math.random() * 1e6)}`
-        : null;
+      return this.stack ? domId('computedStack') : null;
     },
   },
   watch: {

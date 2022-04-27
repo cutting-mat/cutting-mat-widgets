@@ -5,8 +5,10 @@
 <script>
 /**
  * 波形图音频播放器
- * base on ；https://wavesurfer-js.org/docs/options.html
+ * base on: https://wavesurfer-js.org/docs/options.html
  * */
+import { domId } from '../__support/util.js';
+
 require('wavesurfer.js');
 
 const { WaveSurfer } = window;
@@ -31,7 +33,7 @@ export default {
   },
   data() {
     return {
-      domID: `waveform_${parseInt(Math.random() * 1e5)}`,
+      domID: domId(),
       player: null,
       currentTime: 0,
       intervalNum: 0,

@@ -1,10 +1,10 @@
-let widStore = {};
+const widStore = {};
 
 export const report = {
     widgetKey: null,
     pageHref: null,
     pageInstanceId: null,
-    send: function (packageInfo) {
+    send(packageInfo) {
         if (packageInfo) {
             this.init(packageInfo);
 
@@ -20,7 +20,7 @@ export const report = {
             // console.warn('组件上报', widgetAmount)
         }
     },
-    init: function (packageInfo) {
+    init(packageInfo) {
         if (packageInfo) {
             this.widgetKey = `${packageInfo.name}__${packageInfo.version}`;
             this.pageHref = window.location.href;
@@ -29,7 +29,7 @@ export const report = {
             }
             if (!widStore[this.pageHref][this.widgetKey]) {
                 widStore[this.pageHref][this.widgetKey] = 1;
-            }else {
+            } else {
                 widStore[this.pageHref][this.widgetKey]++;
             }
             this.pageInstanceId = widStore[this.pageHref][this.widgetKey];
