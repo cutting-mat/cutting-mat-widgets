@@ -3,6 +3,8 @@
     ref="videoPlayer"
     class="video-js vjs-theme-fantasy"
     style="width: 100%; height: 100%"
+    controlslist="nodownload noremoteplayback"
+    oncontextmenu="return false"
   ></video>
 </template>
 

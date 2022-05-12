@@ -1,12 +1,12 @@
 <template>
-  <button class="demo-button">
+  <button class="base-button">
     <slot />
   </button>
 </template>
 
 <script>
 export default {
-  name: 'demo-button',
+  name: 'base-button',
 
   props: {
     color: String,
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style lang="less">
-.demo-button {
+.base-button {
   min-width: 120px;
   color: #fff;
   font-size: 16px;

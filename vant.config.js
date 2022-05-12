@@ -1,4 +1,3 @@
-
 module.exports = {
   name: 'cutting-mat-widgets',
   build: {
@@ -31,8 +30,8 @@ module.exports = {
         title: '基础组件',
         items: [
           {
-            path: 'demo-button',
-            title: '按钮',
+            path: 'base-button',
+            title: 'base 按钮',
           },
         ],
       },
@@ -63,7 +62,7 @@ module.exports = {
         items: [
           {
             path: 'layout-button',
-            title: 'DemoButton 按钮',
+            title: 'layout 按钮',
           },
         ],
       },
@@ -72,7 +71,7 @@ module.exports = {
         items: [
           {
             path: 'block-button',
-            title: 'DemoButton 按钮',
+            title: 'block 按钮',
           },
         ],
       },
@@ -81,7 +80,7 @@ module.exports = {
         items: [
           {
             path: 'page-button',
-            title: 'DemoButton 按钮',
+            title: 'page 按钮',
           },
         ],
       },
@@ -90,7 +89,7 @@ module.exports = {
         items: [
           {
             path: 'template-button',
-            title: 'DemoButton 按钮',
+            title: 'template 按钮',
           },
         ],
       },
