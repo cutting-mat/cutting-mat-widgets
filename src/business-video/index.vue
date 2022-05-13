@@ -1,11 +1,13 @@
 <template>
-  <video
-    ref="videoPlayer"
-    class="video-js vjs-theme-fantasy"
-    style="width: 100%; height: 100%"
-    controlslist="nodownload noremoteplayback"
-    oncontextmenu="return false"
-  ></video>
+  <div style="width: 100%; height: 100%">
+    <video
+      ref="videoPlayer"
+      class="video-js vjs-theme-fantasy"
+      style="width: 100%; height: 100%"
+      controlslist="nodownload noremoteplayback"
+      oncontextmenu="return false"
+    ></video>
+  </div>
 </template>
 
 <script>
@@ -22,6 +24,7 @@ require('video.js/dist/lang/zh-CN.js');
 
 export default {
   name: `video-player`,
+  emits: ['ready', 'ended', 'pause', 'play', 'timeUp'],
   props: {
     options: {
       type: Object,
@@ -29,33 +32,57 @@ export default {
         return {};
       },
     },
-    heartbeatSecond: {
-      type: Number,
-      default: 5, // s
-    },
     seekAble: {
       type: Boolean,
       default: true,
+    },
+    subscribeTimes: {
+      type: Array,
+      default() {
+        /** item format:
+         * {
+         *   time: Number(s)
+         * }
+         * */
+        return [];
+      },
     },
   },
   data() {
     return {
       player: null,
       currentTime: 0,
-      intervalNum: 0,
     };
   },
+  computed: {
+    timeListeners() {
+      return this.subscribeTimes.map((item) => {
+        return { ...item, pass: item.time < this.currentTime };
+      });
+    },
+    timeTarget() {
+      return this.timeListeners.filter((item) => !item.pass)[0];
+    },
+  },
   mounted() {
-    // 默认配置
     const options = {
       playbackRates: [0.5, 1, 1.5, 2],
       language: 'zh-CN',
-      bigPlayButton: false,
       ...this.options,
     };
-
-    const player = videojs(this.$refs.videoPlayer, options, () => {
+    const player = videojs(this.DomID, options, () => {
       this.$emit('ready', player);
+    });
+
+    // 基本事件
+    player.on('ended', () => {
+      this.$emit('ended');
+    });
+    player.on('pause', () => {
+      this.$emit('pause');
+    });
+    player.on('play', () => {
+      this.$emit('play');
     });
     this.player = player;
 
@@ -78,19 +105,16 @@ export default {
     //   console.log('userinactive', e)
     // })
 
-    // 备份倒计时秒数
-    this.intervalNum = this.heartbeatSecond;
-
-    this.player.setInterval(() => {
-      // 当前时间备份
-      this.currentTime = this.player.currentTime();
-
-      while (this.intervalNum > 1) {
-        return this.intervalNum--;
+    // 进度更新事件
+    this.player.on('timeupdate', () => {
+      const ct = this.player.currentTime();
+      // 监听指定时间
+      if (this.timeTarget && this.timeTarget.time < ct) {
+        this.$emit('timeUp', this.timeTarget);
       }
-      this.intervalNum = this.heartbeatSecond;
-      this.$emit('heartbeat', this.player.currentTime());
-    }, 1000);
+      // 同步当前时间
+      this.currentTime = ct;
+    });
   },
   beforeDestroy() {
     if (this.player) {

@@ -39,7 +39,7 @@ module.exports = {
         title: '图表组件',
         items: [
           {
-            path: 'chart-main',
+            path: 'chart',
             title: '柱形/线形图表',
           },
         ],

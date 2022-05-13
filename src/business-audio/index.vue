@@ -15,6 +15,7 @@ const { WaveSurfer } = window;
 
 export default {
   name: `audio-player`,
+  emits: ['ready', 'ended', 'pause', 'play', 'timeUp'],
   props: {
     options: {
       type: Object,
@@ -22,13 +23,20 @@ export default {
         return {};
       },
     },
-    heartbeatSecond: {
-      type: Number,
-      default: 5, // s
-    },
     seekAble: {
       type: Boolean,
       default: true,
+    },
+    subscribeTimes: {
+      type: Array,
+      default() {
+        /** item format:
+         * {
+         *   time: Number(s)
+         * }
+         * */
+        return [];
+      },
     },
   },
   data() {
@@ -36,8 +44,17 @@ export default {
       domID: domId(),
       player: null,
       currentTime: 0,
-      intervalNum: 0,
     };
+  },
+  computed: {
+    timeListeners() {
+      return this.subscribeTimes.map((item) => {
+        return { ...item, pass: item.time < this.currentTime };
+      });
+    },
+    timeTarget() {
+      return this.timeListeners.filter((item) => !item.pass)[0];
+    },
   },
   mounted() {
     // 默认配置
@@ -53,6 +70,16 @@ export default {
     const player = WaveSurfer.create(options);
     this.player = player;
     this.$emit('ready', this.player);
+    // 基本事件支持
+    player.on('finish', () => {
+      this.$emit('ended');
+    });
+    player.on('pause', () => {
+      this.$emit('pause');
+    });
+    player.on('play', () => {
+      this.$emit('play');
+    });
 
     // 拖拽进度控制
     const audioEl = document.querySelector(`#${this.domID} audio`);
@@ -66,19 +93,15 @@ export default {
       }
     });
 
-    // 备份倒计时秒数
-    this.intervalNum = this.heartbeatSecond;
-
-    setInterval(() => {
-      // 当前时间备份
-      this.currentTime = this.player.getCurrentTime();
-
-      while (this.intervalNum > 1) {
-        return this.intervalNum--;
+    // 进度更新事件
+    this.player.on('audioprocess', (ct) => {
+      // 监听指定时间
+      if (this.timeTarget && this.timeTarget.time < ct) {
+        this.$emit('timeUp', this.timeTarget);
       }
-      this.intervalNum = this.heartbeatSecond;
-      this.$emit('heartbeat', this.player.getCurrentTime());
-    }, 1000);
+      // 同步当前时间
+      this.currentTime = ct;
+    });
   },
   beforeDestroy() {
     if (this.player) {

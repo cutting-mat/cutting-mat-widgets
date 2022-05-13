@@ -2,13 +2,13 @@
   <demo-section>
     <demo-block title="基础用法">
       <div class="rect-618">
-        <chart-main :data="data1" class="_full" />
+        <chart :data="data1" class="_full" />
       </div>
     </demo-block>
 
     <demo-block title="图表类型">
       <div class="rect-618">
-        <chart-main :data="data2" chartType="line" class="_full" />
+        <chart :data="data2" chartType="line" class="_full" />
       </div>
     </demo-block>
   </demo-section>
