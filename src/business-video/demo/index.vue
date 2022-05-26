@@ -3,7 +3,6 @@
     <demo-block title="基础用法">
       <video-player
         style="width: 100%; max-width: 600px"
-        class="vjs-fluid"
         :options="videoOptions"
         @ready="
           (player) =>
@@ -17,7 +16,6 @@
     <demo-block title="禁止拖拽">
       <video-player
         style="width: 100%; max-width: 600px"
-        class="vjs-fluid"
         :options="videoOptions"
         :seek-able="false"
         @ready="
@@ -32,7 +30,6 @@
     <demo-block title="视频打点">
       <video-player
         style="width: 100%; max-width: 600px"
-        class="vjs-fluid"
         :options="videoOptions"
         @ready="handleReadyMark"
       />
@@ -40,9 +37,18 @@
     <demo-block title="清晰度选择">
       <video-player
         style="width: 100%; max-width: 600px"
-        class="vjs-fluid"
         :options="videoOptions"
         @ready="handleReadySwitch"
+      />
+    </demo-block>
+    <demo-block title="HLS加密">
+      <video-player
+        style="width: 100%; max-width: 600px"
+        :options="{
+          ...videoOptions,
+          CryptoConfig: { Enable: false, Debug: true },
+        }"
+        @ready="handleReadyHLS"
       />
     </demo-block>
   </demo-section>
@@ -105,6 +111,13 @@ export default {
           res: '720',
         },
       ]);
+    },
+    handleReadyHLS(player) {
+      player.src({
+        src: 'http://ogn0m4it0.bkt.clouddn.com/58IzAY_GglrObBBbbD98wrHIbLk%3D/llhpmYRGVWfZL8dyCPXwCwKovI9R.m3u8', // 七牛云demo
+        // src: 'http://office.sogdata.com/m3u8/hls-enc/playlist.m3u8',
+        type: 'application/x-mpegURL',
+      });
     },
   },
 };

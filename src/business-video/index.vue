@@ -1,7 +1,7 @@
 <template>
   <div style="width: 100%; height: 100%">
     <video
-      ref="videoPlayer"
+      :id="domID"
       class="video-js vjs-theme-fantasy"
       style="width: 100%; height: 100%"
       controlslist="nodownload noremoteplayback"
@@ -11,16 +11,23 @@
 </template>
 
 <script>
-import videojs from 'video.js';
-import 'video.js/dist/video-js.min.css';
+import { domId } from '../__support/util.js';
+
+import videojs from './lib/video.js';
+
+import './lib/video-js.min.css';
 import '@videojs/themes/dist/fantasy/index.css';
-import '@tower1229/videojs-plugin-marker';
 import '@tower1229/videojs-plugin-marker/dist/style.css';
-import '@tower1229/videojs-plugin-source-switcher';
 import '@tower1229/videojs-plugin-source-switcher/dist/style.css';
 
 window.videojs = videojs;
-require('video.js/dist/lang/zh-CN.js');
+
+require('./lib/zh-CN.js');
+
+const loadPlugins = Promise.all([
+  import('@tower1229/videojs-plugin-marker'),
+  import('@tower1229/videojs-plugin-source-switcher'),
+]);
 
 export default {
   name: `video-player`,
@@ -50,6 +57,7 @@ export default {
   },
   data() {
     return {
+      domID: domId(),
       player: null,
       currentTime: 0,
     };
@@ -64,14 +72,26 @@ export default {
       return this.timeListeners.filter((item) => !item.pass)[0];
     },
   },
+  watch: {
+    seekAble: {
+      handler() {
+        this.setControlBar();
+      },
+      immediate: true,
+    },
+  },
   mounted() {
+    // 默认配置
     const options = {
       playbackRates: [0.5, 1, 1.5, 2],
       language: 'zh-CN',
+      fluid: true,
       ...this.options,
     };
-    const player = videojs(this.DomID, options, () => {
-      this.$emit('ready', player);
+    const player = videojs(this.domID, options, () => {
+      loadPlugins.then(() => {
+        this.$emit('ready', player);
+      });
     });
 
     // 基本事件
@@ -85,16 +105,8 @@ export default {
       this.$emit('play');
     });
     this.player = player;
-
     // 拖拽进度控制
-    this.player.on('seeked', () => {
-      if (this.player.currentTime() - this.currentTime > 1) {
-        if (!this.seekAble) {
-          this.player.currentTime(this.currentTime);
-          console.warn('本视频禁止快进！');
-        }
-      }
-    });
+    this.setControlBar();
 
     // 用户活动事件
     // this.player.on('useractive', e => {
@@ -120,6 +132,17 @@ export default {
     if (this.player) {
       this.player.dispose();
     }
+  },
+  methods: {
+    setControlBar() {
+      if (this.player) {
+        if (this.seekAble) {
+          this.player.controlBar.progressControl.enable();
+        } else {
+          this.player.controlBar.progressControl.disable();
+        }
+      }
+    },
   },
 };
 </script>

@@ -1538,17 +1538,17 @@
   "resolved" "https://registry.npmjs.org/@tootallnate/once/-/once-1.1.2.tgz"
   "version" "1.1.2"
 
-"@tower1229/videojs-plugin-marker@^0.0.6":
-  "integrity" "sha512-Imde01oWys7NGlIKhk5+BHvmGpYvLNHBDAt1CWy66zWtWEcyBuEq6Ktw/68R6H9bM36hXGBqXk0K3UtBUyaVnA=="
-  "resolved" "https://registry.npmjs.org/@tower1229/videojs-plugin-marker/-/videojs-plugin-marker-0.0.6.tgz"
-  "version" "0.0.6"
+"@tower1229/videojs-plugin-marker@^0.0.7":
+  "integrity" "sha512-+FNXcj6YGX6fHDptzzzt7FpcuZJp9hBBW7pxwkn/3zlh1nENVNb81ElKw/HsCjyjy+Q5qZyUgaQ6tbwYp0zS1w=="
+  "resolved" "https://registry.npmjs.org/@tower1229/videojs-plugin-marker/-/videojs-plugin-marker-0.0.7.tgz"
+  "version" "0.0.7"
   dependencies:
     "vue" "^3.2.25"
 
-"@tower1229/videojs-plugin-source-switcher@^0.0.2":
-  "integrity" "sha512-WPY62IFRNnyrNoJcmU7+sZV1p/PsvK1Fl8iG3lFYhm3e8aoWqJTPMwCmNjewTPC8Fl+XjHwNQRBxYGG7otXlxg=="
-  "resolved" "https://registry.npmjs.org/@tower1229/videojs-plugin-source-switcher/-/videojs-plugin-source-switcher-0.0.2.tgz"
-  "version" "0.0.2"
+"@tower1229/videojs-plugin-source-switcher@^0.0.4":
+  "integrity" "sha512-480K8y0QJukyEgc0FxkGZ5c18EEqSnCJ0ob0tDM+xJJ3xwkD7YpPb0nbbjEEoODIB7NCNsEtwPHU9D5tarvZaQ=="
+  "resolved" "https://registry.npmjs.org/@tower1229/videojs-plugin-source-switcher/-/videojs-plugin-source-switcher-0.0.4.tgz"
+  "version" "0.0.4"
   dependencies:
     "vue" "^3.2.25"
 

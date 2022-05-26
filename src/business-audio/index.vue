@@ -88,7 +88,7 @@ export default {
       if (audioEl.currentTime - this.currentTime > 1) {
         if (!this.seekAble) {
           audioEl.currentTime = this.currentTime;
-          console.warn('本视频禁止快进！');
+          console.warn('禁止快进！');
         }
       }
     });
