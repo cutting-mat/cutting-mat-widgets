@@ -8,7 +8,7 @@ BusinessVideo 是一个 HTML5 视频播放器
 
 ```js
 import Vue from 'vue';
-import { BusinessVideo } from 'widgets';
+import { BusinessVideo } from '@cutting-mat/widgets';
 
 Vue.use(BusinessVideo);
 ```

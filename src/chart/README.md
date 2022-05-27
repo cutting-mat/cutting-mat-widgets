@@ -8,7 +8,7 @@
 
 ```js
 import Vue from 'vue';
-import { ChartMain } from 'widgets';
+import { ChartMain } from '@cutting-mat/widgets';
 
 Vue.use(ChartMain);
 ```
