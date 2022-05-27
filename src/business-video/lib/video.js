@@ -31879,6 +31879,7 @@ var callbackWrapper = function callbackWrapper(
 var xhrFactory = function xhrFactory() {
   // 支持自定义请求参数
   var xhr = function XhrFunction(options, callback, _player) {
+    // console.log('xhrFactory', options, _player);
     // Add a default timeout
     options = mergeOptions$1(
       {
@@ -33270,7 +33271,6 @@ var DashPlaylistLoader = /*#__PURE__*/ (function (_EventTarget) {
 
   _proto.requestMaster_ = function requestMaster_(cb) {
     var _this6 = this;
-
     this.request = this.vhs_.xhr(
       {
         uri: this.masterPlaylistLoader_.srcUrl,

@@ -7,7 +7,7 @@
         @ready="
           (player) =>
             player.src({
-              src: 'https://static.refined-x.com/static/1080p-watermark.mp4',
+              src: 'https://static.refined-x.com/static/1080p-watermark.mp4?t=media111',
               type: 'video/mp4',
             })
         "
