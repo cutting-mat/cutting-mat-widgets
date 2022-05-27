@@ -46,7 +46,9 @@ export default {
     subscribeTimes: {
       type: Array,
       default() {
-        /** item format:
+        /**
+         * 监听一组播放进度，通过 ‘timeUp’ 事件回调
+         * item format:
          * {
          *   time: Number(s)
          * }

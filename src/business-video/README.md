@@ -1,16 +1,16 @@
-# BusinessVideo 视频
+# BusinessVideo 视频播放器
 
 ### 介绍
 
-DemoButton 是一个示例按钮组件
+BusinessVideo 是一个 HTML5 视频播放器
 
 ### 引入
 
 ```js
 import Vue from 'vue';
-import { DemoButton } from 'widgets';
+import { BusinessVideo } from 'widgets';
 
-Vue.use(DemoButton);
+Vue.use(BusinessVideo);
 ```
 
 ## 代码演示
@@ -18,26 +18,36 @@ Vue.use(DemoButton);
 ### 基础用法
 
 ```html
-<base-button type="primary" />
+<video-player
+  @ready="player => player.src({
+        src: 'https://static.refined-x.com/static/1080p-watermark.mp4',
+        type: 'video/mp4',
+    })"
+/>
 ```
 
 ## API
 
 ### Props
 
-| 参数          | 说明     | 类型     | 默认值    |
-| ------------- | -------- | -------- | --------- |
-| type          | 按钮类型 | _string_ | `primary` |
-| color `1.0.0` | 按钮颜色 | _string_ | -         |
+| 参数           | 说明                                                           | 类型    | 默认值 |
+| -------------- | -------------------------------------------------------------- | ------- | ------ |
+| options        | videojs 配置，官方文档：https://videojs.com/getting-started    | Object  | `-`    |
+| seekAble       | 是否可以拖拽快进                                               | Boolean | `true` |
+| subscribeTimes | 监听一组播放进度，通过 `timeUp` 事件回调，示例：`[{time: 10}]` | Array   | `[]`   |
 
 ### Events
 
-| 事件名 | 说明       | 回调参数            |
-| ------ | ---------- | ------------------- |
-| click  | 点击时触发 | _event: MouseEvent_ |
+| 事件名 | 说明                                         | 回调参数                        |
+| ------ | -------------------------------------------- | ------------------------------- |
+| ready  | 播放器就绪                                   | player: videojs 实例            |
+| play   | 开始播放                                     | 无                              |
+| pause  | 暂停播放                                     | 无                              |
+| ended  | 结束播放                                     | 无                              |
+| timeUp | 到达监听的播放进度，配合`subscribeTimes`使用 | Object: subscribeTimes 数据对象 |
 
 ### Slots
 
-| 名称    | 说明     |
-| ------- | -------- |
-| default | 默认插槽 |
+| 名称 | 说明 |
+| ---- | ---- |
+| 无   | ``   |
