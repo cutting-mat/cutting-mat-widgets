@@ -47,6 +47,11 @@
         :options="{
           ...videoOptions,
           CryptoConfig: { Enable: false, Debug: true },
+          extendRequestOption: {
+            headers: {
+              Authorization: 'test123',
+            },
+          },
         }"
         @ready="handleReadyHLS"
       />
