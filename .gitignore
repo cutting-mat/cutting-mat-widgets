@@ -9,9 +9,9 @@ node_modules
 package-lock.json
 
 # dist file
-es
-lib
-site
+/es
+/lib
+/site
 
 # test
 test/coverage
