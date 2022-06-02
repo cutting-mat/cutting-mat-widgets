@@ -30,8 +30,8 @@ module.exports = {
         title: '基础组件',
         items: [
           {
-            path: 'base-button',
-            title: 'base 按钮',
+            path: 'base-watermark',
+            title: '水印组件',
           },
         ],
       },

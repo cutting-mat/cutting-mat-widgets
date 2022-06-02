@@ -1,16 +1,16 @@
-# DemoButton 按钮
+# BaseWatermark 水印组件
 
 ### 介绍
 
-DemoButton 是一个示例按钮组件
+BaseWatermark 是水印组件
 
 ### 引入
 
 ```js
 import Vue from 'vue';
-import { DemoButton } from '@cutting-mat/widgets';
+import { BaseWatermark } from '@cutting-mat/widgets';
 
-Vue.component('base-button', DemoButton);
+Vue.component('watermark', BaseWatermark);
 ```
 
 ## 代码演示
@@ -18,7 +18,7 @@ Vue.component('base-button', DemoButton);
 ### 基础用法
 
 ```html
-<base-button type="primary" />
+<watermark />
 ```
 
 ## API
