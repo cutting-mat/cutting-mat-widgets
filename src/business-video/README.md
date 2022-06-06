@@ -30,11 +30,11 @@ Vue.component('video-player', BusinessVideo);
 
 ### Props
 
-| 参数           | 说明                                                           | 类型    | 默认值 |
-| -------------- | -------------------------------------------------------------- | ------- | ------ |
-| options        | videojs 配置，官方文档：https://videojs.com/getting-started    | Object  | `-`    |
-| seekAble       | 是否可以拖拽快进                                               | Boolean | `true` |
-| subscribeTimes | 监听一组播放进度，通过 `timeUp` 事件回调，示例：`[{time: 10}]` | Array   | `[]`   |
+| 参数           | 说明                                                           | 类型      | 默认值 |
+| -------------- | -------------------------------------------------------------- | --------- | ------ |
+| options        | videojs 配置，官方文档：https://videojs.com/getting-started    | _Object_  | `-`    |
+| seekAble       | 是否可以拖拽快进                                               | _Boolean_ | `true` |
+| subscribeTimes | 监听一组播放进度，通过 `timeUp` 事件回调，示例：`[{time: 10}]` | _Array_   | `[]`   |
 
 ### Events
 

@@ -31,7 +31,11 @@ module.exports = {
         items: [
           {
             path: 'base-watermark',
-            title: '水印组件',
+            title: '水印',
+          },
+          {
+            path: 'base-scroll-list',
+            title: '滚动列表',
           },
         ],
       },

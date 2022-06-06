@@ -1,25 +1,25 @@
 <template>
   <div class="ScrollList" ref="ScrollList">
     <div class="_wrap">
-      <ul class="flex-col _page _page_before">
+      <ul class="_page _page_before">
         <li
           v-for="(item, index) in page1Data"
           :key="'_page_item' + index"
-          class="_item flex-1"
+          class="_item"
         >
           <slot :row="item" :isCur="index === (canMoveOn ? 0 : currentIndex)">{{
-            item.dutyUnit
+            item
           }}</slot>
         </li>
       </ul>
-      <ul class="flex-col _page _page_after">
+      <ul class="_page _page_after">
         <li
           v-for="(item, index) in page2Data"
           :key="'_page2_item' + index"
-          class="_item flex-1"
+          class="_item"
           :class="[index % 2 === 0 ? 'odd' : 'even']"
         >
-          <slot :row="item">{{ item.dutyUnit }}</slot>
+          <slot name="default" :row="item">{{ item }}</slot>
         </li>
       </ul>
     </div>
@@ -27,7 +27,9 @@
 </template>
 
 <script>
-// TODO
+// 调试开关
+const DEBUG = process.env.NODE_ENV === 'development';
+
 // 数据填充
 const getPageData = function (currentIndex, totalCount, list) {
   let result = [];
@@ -47,7 +49,7 @@ const getPageData = function (currentIndex, totalCount, list) {
 };
 
 export default {
-  name: 'business-scroll-list',
+  name: 'scroll-list',
   props: {
     list: {
       type: Array,
@@ -56,11 +58,13 @@ export default {
         return [];
       },
     },
-    rows: {
+    pageSize: {
+      // 展示条数
       type: Number,
       default: 10,
     },
     defaultIndex: {
+      // 默认展示第几条
       type: Number,
       default: 0,
     },
@@ -72,7 +76,8 @@ export default {
       type: Number,
       default: 500,
     },
-    repeatFill: {
+    loop: {
+      // 列表是否循环
       type: Boolean,
       default: true,
     },
@@ -111,10 +116,11 @@ export default {
   methods: {
     setPageData() {
       // 第一页
-      this.page1Data = getPageData(this.currentIndex, this.rows, this.list);
+      this.page1Data = getPageData(this.currentIndex, this.pageSize, this.list);
       // 下一页
-      const nextPageIndex = (this.currentIndex + this.rows) % this.list.length;
-      this.page2Data = getPageData(nextPageIndex, this.rows, this.list);
+      const nextPageIndex =
+        (this.currentIndex + this.pageSize) % this.list.length;
+      this.page2Data = getPageData(nextPageIndex, this.pageSize, this.list);
       // 强制刷新
       this.$forceUpdate();
     },
@@ -125,7 +131,7 @@ export default {
         wrapDom.style.transition = `all ease ${this.duration}ms`;
         wrapDom.style.transform = `translateY(-${this.itemHeight}px)`;
       } else {
-        console.warn('找不到 wrapDom');
+        DEBUG && console.warn('找不到 wrapDom');
       }
       setTimeout(() => {
         this.setPageData();
@@ -138,9 +144,9 @@ export default {
     },
     init() {
       // 初始数据
-      if (this.rows > this.list.length && !this.repeatFill) {
+      if (this.pageSize > this.list.length && !this.loop) {
         this.canMoveOn = false;
-        console.log('scrooList: 数据不足，无法滚动');
+        DEBUG && console.log('scrooList: 数据不足，无法滚动');
         this.page1Data = this.list;
       } else {
         this.setPageData();
@@ -151,10 +157,10 @@ export default {
         const itemDom =
           this.$refs.ScrollList.querySelector(`._page_before ._item`);
         if (itemDom) {
-          console.log(itemDom, itemDom.offsetHeight);
+          DEBUG && console.log(`itemDom高度`, itemDom.offsetHeight);
           this.itemHeight = itemDom.offsetHeight;
         } else {
-          console.warn(`找不到 ._item 元素`);
+          DEBUG && console.warn(`找不到 ._item 元素`);
         }
       });
       // 设置定时器
@@ -181,9 +187,10 @@ export default {
 }
 .ScrollList ._page {
   height: 50%;
+  display: flex;
+  flex-direction: column;
 }
-
 .ScrollList ._item {
-  transition: all ease 0.3s;
+  flex: 1;
 }
 </style>
