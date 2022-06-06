@@ -4,9 +4,9 @@ module.exports = {
     css: {
       preprocessor: 'less',
     },
-    // site: {
-    //   publicPath: '/cutting-mat-widgets/'
-    // }
+    site: {
+      publicPath: '/cutting-mat-widgets/',
+    },
   },
   site: {
     title: 'cutting-mat-widgets',
