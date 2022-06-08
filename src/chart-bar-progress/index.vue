@@ -1,6 +1,6 @@
 <template>
   <div class="BarProgress">
-    <slot />
+    <slot name="default" />
     <div class="_bar" :style="wrapStyle">
       <div class="_p" :style="progressStyle">
         <div
@@ -12,13 +12,15 @@
         </div>
       </div>
     </div>
-    <div
-      v-if="labelType != 3"
-      :class="['_label', '_label_' + labelType]"
-      :style="labelStyle"
-    >
-      <span class="_text"> {{ percentage }}% </span>
-    </div>
+    <slot name="value">
+      <div
+        v-if="labelType != 3"
+        :class="['_label', '_label_' + labelType]"
+        :style="labelStyle"
+      >
+        <span class="_text"> {{ percentage }}% </span>
+      </div>
+    </slot>
   </div>
 </template>
 

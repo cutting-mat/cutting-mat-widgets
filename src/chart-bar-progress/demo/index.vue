@@ -14,5 +14,12 @@
         <div style="width: 4em; color: #999; font-size: 12px">完成度</div>
       </bar-progress>
     </demo-block>
+    <demo-block title="自定义文字">
+      <bar-progress :percentage="50" label-type="2">
+        <template slot="value">
+          <div style="width: 4em; color: #999; text-align: right">(50)</div>
+        </template>
+      </bar-progress>
+    </demo-block>
   </demo-section>
 </template>
