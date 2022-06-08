@@ -1,28 +1,28 @@
 <template>
   <div :id="domId">
-    <slot />
+    <img :src="targetSrc" v-if="targetSrc" />
   </div>
 </template>
 
 <script>
+// TODO 图片/文字水印 动态水印 图片元素合成水印
+// https://github.com/brianium/watermarkjs/blob/master/lib/image/index.js
 import { domId } from '../__support/util';
 // 调试开关
 const DEBUG = process.env.NODE_ENV === 'development';
 
-function createWaterMark(ele) {
+function createWaterMark(ele, textConfig, imageConfig) {
   const rect = ele.getBoundingClientRect();
-  const angle = -20;
-  const txt = '秋风的笔记';
   const canvas = document.createElement('canvas');
-  canvas.width = 180;
-  canvas.height = 100;
+  canvas.width = rect.width;
+  canvas.height = rect.height;
   const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, 180, 100);
-  ctx.fillStyle = '#000';
-  ctx.globalAlpha = 0.3;
-  ctx.font = `16px serif`;
-  ctx.rotate((Math.PI / 180) * angle);
-  ctx.fillText(txt, 0, 50);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = textConfig.color;
+  ctx.globalAlpha = textConfig.opacity;
+  ctx.font = `${textConfig.fontSize}px serif`;
+  ctx.rotate((Math.PI / 180) * textConfig.angle);
+  ctx.fillText(textConfig.text, 0, 50);
 
   console.log('rect', rect);
   return canvas.toDataURL();
@@ -36,10 +36,50 @@ export default {
       type: String,
       default: '',
     },
-    text: {
-      // 水印文字
+    targetSrc: {
+      // 加水印的图片src
       type: String,
-      default: '水印文字',
+    },
+    dynamicShow: {
+      // 动态显示设置
+      type: Object,
+      default() {
+        return {
+          enable: false,
+          duration: 10000,
+          delay: 10000,
+        };
+      },
+    },
+    textConfig: {
+      // 文字水印配置
+      type: Object,
+      default() {
+        return {
+          text: '水印文字',
+          position: 5, // 位置：1~9
+          angle: 0, // 旋转角度
+          fontSize: 16, // 字号
+          color: '#000', // 颜色
+          opacity: 0.3, // 透明度
+          repeat: false, // 平铺模式，开启后position设置无效
+        };
+      },
+    },
+    imageConfig: {
+      // 图片水印配置
+      type: Object,
+      default() {
+        return {
+          src: '', // 图片url
+          position: 9, // 位置：1~9
+          angle: 0, // 旋转角度
+          width: 0, // 图片绘制宽度
+          height: 0, // 图片绘制高度
+          opacity: 0.3, // 透明度
+          repeat: false, // 平铺模式，开启后position设置无效
+        };
+      },
     },
   },
   data() {
@@ -83,7 +123,7 @@ export default {
     };
 
     const observer = new MutationObserver(callback);
-    const addMaker = function () {
+    const addMaker = () => {
       watermakr.style = `position: ${
         targetNode.tagName.toLocaleLowerCase() === 'body' ? 'fixed' : 'absolute'
       };
@@ -94,7 +134,11 @@ export default {
             pointer-events: none;
             background-repeat: repeat;`;
       targetNode.appendChild(watermakr);
-      watermakr.style.backgroundImage = `url(${createWaterMark(watermakr)})`;
+      watermakr.style.backgroundImage = `url(${createWaterMark(
+        watermakr,
+        this.textConfig,
+        this.imageConfig
+      )})`;
       // 监听元素
       observer.observe(document.body, {
         attributes: true,

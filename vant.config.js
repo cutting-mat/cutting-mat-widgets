@@ -46,6 +46,10 @@ module.exports = {
             path: 'chart',
             title: '柱形/线形图表',
           },
+          {
+            path: 'chart-bar-progress',
+            title: '柱状进度条',
+          },
         ],
       },
       {

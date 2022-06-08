@@ -1,6 +1,7 @@
 <template>
-  <div class="BarProgress flex-row align-center">
-    <div class="_bar flex-1" :style="wrapStyle">
+  <div class="BarProgress">
+    <slot />
+    <div class="_bar" :style="wrapStyle">
       <div class="_p" :style="progressStyle">
         <div
           v-if="labelType == 3"
@@ -24,7 +25,7 @@
 <script>
 // TODO
 export default {
-  name: 'chart-bar-progress',
+  name: 'bar-progress',
   props: {
     percentage: {
       type: [Number, String],
@@ -39,11 +40,6 @@ export default {
       type: String,
       default: 'rgba(255,255,255,0.2)',
     },
-    textColor: {
-      type: String,
-      required: false,
-      default: '#3ed7f5',
-    },
     strokeWidth: {
       type: Number,
       default: 14,
@@ -53,7 +49,7 @@ export default {
     },
     labelType: {
       // label类型 1: 右上,2：右,3：跟随
-      type: String,
+      type: [Number, String],
       default: '1',
     },
     labelColor: {
@@ -96,7 +92,7 @@ export default {
     },
     labelStyle() {
       return {
-        background: `${this.labelColor}`,
+        background: `${Number(this.labelType) === 3 ? this.labelColor : ''}`,
         color: `${this.labelColor}`,
       };
     },
@@ -108,6 +104,11 @@ export default {
 .BarProgress {
   position: relative;
   overflow: visible;
+  display: flex;
+  align-items: center;
+}
+.BarProgress ._bar {
+  flex: 1;
 }
 .BarProgress ._p {
   position: relative;
