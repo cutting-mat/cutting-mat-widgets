@@ -12,12 +12,8 @@
         </div>
       </div>
     </div>
-    <slot name="value">
-      <div
-        v-if="labelType != 3"
-        :class="['_label', '_label_' + labelType]"
-        :style="labelStyle"
-      >
+    <slot name="value" v-if="labelType != 3">
+      <div :class="['_label', '_label_' + labelType]" :style="labelStyle">
         <span class="_text"> {{ percentage }}% </span>
       </div>
     </slot>
