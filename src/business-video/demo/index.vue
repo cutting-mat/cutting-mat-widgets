@@ -49,7 +49,7 @@
           CryptoConfig: {
             ...CryptoConfig,
           },
-          extendRequestOption: {
+          RequestOption: {
             headers: {
               Authorization: 'aa98187bab55403393f8cd01d0229b59',
             },
@@ -72,9 +72,10 @@ export default {
         controls: true,
       },
       CryptoConfig: {
-        Enable: true,
+        Enable: false,
         Debug: true,
         async GetSecretKey() {
+          // 支持异步
           return new Promise((resolve) => {
             setTimeout(() => {
               resolve(12345);
@@ -132,8 +133,8 @@ export default {
     },
     handleReadyHLS(player) {
       player.src({
-        // src: 'http://ogn0m4it0.bkt.clouddn.com/58IzAY_GglrObBBbbD98wrHIbLk%3D/llhpmYRGVWfZL8dyCPXwCwKovI9R.m3u8', // 七牛云demo
-        src: 'http://medicalshare.kaifa/oss/2022/06/14/38/6bc30f1e49e54fb4b579f69ab60259cf/902ecd8a-a696-49fd-9a9f-74d3a99a2c69.m3u8',
+        src: 'http://ogn0m4it0.bkt.clouddn.com/58IzAY_GglrObBBbbD98wrHIbLk%3D/llhpmYRGVWfZL8dyCPXwCwKovI9R.m3u8', // 七牛云demo
+        // src: 'http://medicalshare.kaifa/oss/2022/06/14/38/6bc30f1e49e54fb4b579f69ab60259cf/902ecd8a-a696-49fd-9a9f-74d3a99a2c69.m3u8',
         type: 'application/x-mpegURL',
       });
     },

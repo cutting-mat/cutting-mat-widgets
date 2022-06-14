@@ -38,7 +38,7 @@ export default {
       default() {
         return {
           // CryptoConfig
-          // extendRequestOption
+          // RequestOption
         };
       },
     },

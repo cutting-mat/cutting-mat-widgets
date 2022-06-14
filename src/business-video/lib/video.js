@@ -31884,7 +31884,7 @@ var xhrFactory = function xhrFactory() {
     options = mergeOptions$1(
       {
         timeout: 45e3,
-        ...(_player.options_.extendRequestOption || {}),
+        ...(_player.options_.RequestOption || {}),
       },
       options
     ); // Allow an optional user-specified function to modify the option

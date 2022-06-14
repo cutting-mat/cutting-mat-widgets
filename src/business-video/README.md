@@ -30,11 +30,24 @@ Vue.component('video-player', BusinessVideo);
 
 ### Props
 
-| 参数           | 说明                                                           | 类型      | 默认值 |
-| -------------- | -------------------------------------------------------------- | --------- | ------ |
-| options        | videojs 配置，官方文档：https://videojs.com/getting-started    | _Object_  | `-`    |
-| seekAble       | 是否可以拖拽快进                                               | _Boolean_ | `true` |
-| subscribeTimes | 监听一组播放进度，通过 `timeUp` 事件回调，示例：`[{time: 10}]` | _Array_   | `[]`   |
+| 参数                  | 说明                                                                                               | 类型      | 默认值 |
+| --------------------- | -------------------------------------------------------------------------------------------------- | --------- | ------ |
+| options               | videojs 配置，官方文档：https://videojs.com/getting-started                                        | _Object_  | `-`    |
+| options.CryptoConfig  | 加密配置，详见下方**CryptoConfig**                                                                 | _Object_  | `{}`   |
+| options.RequestOption | HLS 相关请求配置，可自定义请求头或参数等，实现自定义鉴权， 如: `{headers: {Authorization: '123'}}` | _Object_  | `{}`   |
+| seekAble              | 是否可以拖拽快进                                                                                   | _Boolean_ | `true` |
+| subscribeTimes        | 监听一组播放进度，通过 `timeUp` 事件回调，示例：`[{time: 10}]`                                     | _Array_   | `[]`   |
+
+### CryptoConfig(加密配置)
+
+视频加密逻辑是在 HLS 加密基础上，将 key 的内容进行私有强加密，前端播放器需要先将 key 的内容进行解密，然后才能正常播放加密后的 m3u8 视频。
+
+| 参数         | 说明                                                       | 类型                          | 默认值                                   |
+| ------------ | ---------------------------------------------------------- | ----------------------------- | ---------------------------------------- |
+| Enable       | 开启加密                                                   | _Boolean_                     | `false`                                  |
+| Debug        | 开启调试 log                                               | _Boolean_                     | `process.env.NODE_ENV === "development"` |
+| GetSecretKey | 获取加密密钥方法，需返回密钥字符串。支持异步(返回 Promise) | _Function()_                  | `--`                                     |
+| DecryptData  | 解密方法，需返回解密后的内容                               | _Function(string, SecretKey)_ | `--`                                     |
 
 ### Events
 
