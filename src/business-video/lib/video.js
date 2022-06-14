@@ -43980,7 +43980,7 @@ var handleKeyResponse = function handleKeyResponse(
     if (errorObj) {
       return finishProcessingFn(errorObj, segment);
     }
-    console.log('handleKeyResponse', response);
+    CryptoConfig.Debug && console.log('handleKeyResponse', response);
 
     // 支持key加密解密
     const CryptoConfig = _this.options_.CryptoConfig;
@@ -43990,7 +43990,11 @@ var handleKeyResponse = function handleKeyResponse(
       CryptoConfig.Debug && console.warn(`开启视频加密`, CryptoConfig);
       const miString = ab2str(response);
       CryptoConfig.Debug && console.log('加密 Key:', miString);
-      const SecretKey = CryptoConfig.GetSecretKey();
+      let SecretKey = CryptoConfig.GetSecretKey();
+      if (typeof SecretKey.then === 'function') {
+        SecretKey = await SecretKey.then();
+      }
+      CryptoConfig.Debug && console.log('SecretKey=', SecretKey);
       const realKey = CryptoConfig.DecryptData(miString, SecretKey);
       CryptoConfig.Debug && console.log('解密 Key', realKey);
       const buffer = await str2ab(realKey);

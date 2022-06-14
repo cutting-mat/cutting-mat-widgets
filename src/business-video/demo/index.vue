@@ -46,7 +46,9 @@
         style="width: 100%; max-width: 600px"
         :options="{
           ...videoOptions,
-          CryptoConfig: { Enable: true, Debug: true },
+          CryptoConfig: {
+            ...CryptoConfig,
+          },
           extendRequestOption: {
             headers: {
               Authorization: 'aa98187bab55403393f8cd01d0229b59',
@@ -68,6 +70,17 @@ export default {
       videoOptions: {
         // autoplay: true,
         controls: true,
+      },
+      CryptoConfig: {
+        Enable: true,
+        Debug: true,
+        async GetSecretKey() {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve(12345);
+            }, 1000);
+          });
+        },
       },
     };
   },
