@@ -36,7 +36,10 @@ export default {
     options: {
       type: Object,
       default() {
-        return {};
+        return {
+          // CryptoConfig
+          // extendRequestOption
+        };
       },
     },
     seekAble: {

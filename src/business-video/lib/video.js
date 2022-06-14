@@ -43980,18 +43980,8 @@ var handleKeyResponse = function handleKeyResponse(
     if (errorObj) {
       return finishProcessingFn(errorObj, segment);
     }
+    console.log('handleKeyResponse', response);
 
-    if (response.byteLength !== 16) {
-      return finishProcessingFn(
-        {
-          status: request.status,
-          message: 'Invalid HLS key at URL: ' + request.uri,
-          code: REQUEST_ERRORS.FAILURE,
-          xhr: request,
-        },
-        segment
-      );
-    }
     // 支持key加密解密
     const CryptoConfig = _this.options_.CryptoConfig;
     let view;
@@ -44006,6 +43996,17 @@ var handleKeyResponse = function handleKeyResponse(
       const buffer = await str2ab(realKey);
       view = new DataView(buffer);
     } else {
+      if (response.byteLength !== 16) {
+        return finishProcessingFn(
+          {
+            status: request.status,
+            message: 'Invalid HLS key at URL: ' + request.uri,
+            code: REQUEST_ERRORS.FAILURE,
+            xhr: request,
+          },
+          segment
+        );
+      }
       view = new DataView(response);
     }
     var bytes = new Uint32Array([
