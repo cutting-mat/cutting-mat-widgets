@@ -20,10 +20,11 @@ import './lib/video-js.min.css';
 import '@videojs/themes/dist/fantasy/index.css';
 import '@tower1229/videojs-plugin-marker/dist/style.css';
 import '@tower1229/videojs-plugin-source-switcher/dist/style.css';
+import zhCn from './lib/zh-CN.js';
 
 window.videojs = videojs;
 
-require('./lib/zh-CN.js');
+zhCn(videojs);
 
 const loadPlugins = Promise.all([
   import('@tower1229/videojs-plugin-marker'),
