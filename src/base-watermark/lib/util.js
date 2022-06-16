@@ -7,9 +7,11 @@
  */
 export function loadUrl(url, init) {
   const img = new Image();
-  typeof init === 'function' && init(img);
+  img.setAttribute('crossOrigin', 'anonymous');
   return new Promise((resolve) => {
-    img.onload = () => resolve(img);
+    img.onload = () => {
+      resolve(img);
+    };
     img.src = url;
   });
 }
