@@ -108,7 +108,7 @@ export default {
         this.$emit('ready', player);
       });
       // 水印
-      if (this.watermarkConfig.text) {
+      if (this.watermarkConfig.wmText || this.watermarkConfig.wmImage) {
         this.wmTarget = document.getElementById(this.domID);
       }
     });

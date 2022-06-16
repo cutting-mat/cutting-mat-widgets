@@ -153,23 +153,7 @@ function createWaterMark(config, callback) {
     ctx.globalAlpha = config.opacity;
     ctx.rotate((Math.PI / 180) * config.angle);
 
-    if (config.input === 'text') {
-      // 绘制文字
-      const drawTextInfo = getDrawTextInfo(canvas.width, canvas.height, config);
-      ctx.fillStyle = config.color;
-      ctx.font = `${config.fontSize}px ${config.fontFamily}`;
-      ctx.textAlign = drawTextInfo.textAlign;
-      ctx.textBaseline = drawTextInfo.textBaseline;
-      ctx.fillText(
-        config.text,
-        drawTextInfo.position[0],
-        drawTextInfo.position[1]
-      );
-      typeof callback === 'function' && callback(canvas, ctx);
-      if (config.dynamic) {
-        config.timer = setTimeout(clear, config.dynamicDuration);
-      }
-    } else if (config.input === 'image') {
+    if (config.image) {
       // 绘制图像
       loadUrl(config.image).then((img) => {
         const drawImageInfo = getDrawImageInfo(
@@ -195,6 +179,22 @@ function createWaterMark(config, callback) {
           config.timer = setTimeout(clear, config.dynamicDuration);
         }
       });
+    } else if (config.text) {
+      // 绘制文字
+      const drawTextInfo = getDrawTextInfo(canvas.width, canvas.height, config);
+      ctx.fillStyle = config.color;
+      ctx.font = `${config.fontSize}px ${config.fontFamily}`;
+      ctx.textAlign = drawTextInfo.textAlign;
+      ctx.textBaseline = drawTextInfo.textBaseline;
+      ctx.fillText(
+        config.text,
+        drawTextInfo.position[0],
+        drawTextInfo.position[1]
+      );
+      typeof callback === 'function' && callback(canvas, ctx);
+      if (config.dynamic) {
+        config.timer = setTimeout(clear, config.dynamicDuration);
+      }
     }
   };
 
@@ -308,8 +308,7 @@ export default {
         dom: null,
         timer: null,
         canvas: this.canvas,
-        output: this.targetImage ? 'image' : 'dom',
-        input: this.wmImage ? 'image' : 'text',
+        output: !this.target && this.targetImage ? 'image' : 'dom',
         // 文字
         text: this.wmText,
         position: this.position,
