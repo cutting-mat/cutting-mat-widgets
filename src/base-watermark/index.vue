@@ -8,11 +8,55 @@ import { domId } from '../__support/util';
 import { loadUrl } from './lib/util';
 // 调试开关
 const DEBUG = process.env.NODE_ENV === 'development';
-// 获取绘制文字位置
-const getDrawPosition = function (width, height, config) {
-  const posi = config.position;
+
+// 文字水平对齐
+const textAlignHash = {
+  1: 'left',
+  2: 'center',
+  3: 'right',
+  4: 'left',
+  5: 'center',
+  6: 'right',
+  7: 'left',
+  8: 'center',
+  9: 'right',
+};
+// 文字垂直对齐
+const textBaselineHash = {
+  1: 'top',
+  2: 'top',
+  3: 'top',
+  4: 'middle',
+  5: 'middle',
+  6: 'middle',
+  7: 'bottom',
+  8: 'bottom',
+  9: 'bottom',
+};
+
+// 获取 1-9 随机不重复整数
+let randomPosiTemp;
+const randomPosi = function () {
+  const result = Math.floor(Math.random() * 10);
+  if (result === 0 || result === randomPosiTemp) {
+    return randomPosi();
+  }
+  randomPosiTemp = result;
+  return result;
+};
+
+// 获取绘制文字信息
+const getDrawTextInfo = function (width, height, config) {
+  let posi = config.position;
+  // 随机位置
+  if (config.dynamicPosition) {
+    posi = randomPosi();
+  }
   let x = 0;
   let y = 0;
+  const textAlign = textAlignHash[posi];
+  const textBaseline = textBaselineHash[posi];
+
   if ([2, 5, 8].indexOf(posi) !== -1) {
     x = Math.round(width / 2);
   } else if ([3, 6, 9].indexOf(posi) !== -1) {
@@ -27,12 +71,20 @@ const getDrawPosition = function (width, height, config) {
   } else {
     y = config.paddingY;
   }
-  return [x, y];
+  return {
+    position: [x, y],
+    textAlign,
+    textBaseline,
+  };
 };
 
-// 获取绘制图片位置
-const getDrawImagePositon = function (width, height, config, img) {
-  const posi = config.position;
+// 获取绘制图片绘制信息
+const getDrawImageInfo = function (width, height, config, img) {
+  let posi = config.position;
+  // 随机位置
+  if (config.dynamicPosition) {
+    posi = randomPosi();
+  }
   let x = 0;
   let y = 0;
   let w = img.width;
@@ -65,67 +117,62 @@ const getDrawImagePositon = function (width, height, config, img) {
   } else {
     y = config.paddingY;
   }
-  console.log(posi, x, y, w, h);
+
   return {
     position: [x, y],
     size: [w, h],
   };
 };
 
-// 文字水平对齐
-const textAlignHash = {
-  1: 'left',
-  2: 'center',
-  3: 'right',
-  4: 'left',
-  5: 'center',
-  6: 'right',
-  7: 'left',
-  8: 'center',
-  9: 'right',
-};
-// 文字垂直对齐
-const textBaselineHash = {
-  1: 'top',
-  2: 'top',
-  3: 'top',
-  4: 'middle',
-  5: 'middle',
-  6: 'middle',
-  7: 'bottom',
-  8: 'bottom',
-  9: 'bottom',
-};
-
-function createWaterMark(ele, config) {
-  const rect = ele.getBoundingClientRect();
+function createWaterMark(config, callback) {
+  const rect =
+    config.output === 'dom' && config.dom
+      ? config.dom.getBoundingClientRect()
+      : {
+          width: config.targetImageWidth,
+          height: config.targetImageHeight,
+        };
   const { canvas } = config;
+  const ctx = canvas.getContext('2d');
   canvas.width = config.repeat ? config.repeatWidth : rect.width;
   canvas.height = config.repeat ? config.repeatHeight : rect.height;
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  // 统一设置
-  ctx.globalAlpha = config.opacity;
-  ctx.rotate((Math.PI / 180) * config.angle);
-  return new Promise((resolve) => {
+
+  // 清屏
+  const clear = function () {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    typeof callback === 'function' && callback(canvas, ctx);
+
+    if (config.dynamic) {
+      config.timer = setTimeout(drawFunction, config.dynamicDelay);
+    } else {
+      drawFunction();
+    }
+  };
+  const drawFunction = function () {
+    // 统一设置
+    ctx.globalAlpha = config.opacity;
+    ctx.rotate((Math.PI / 180) * config.angle);
+
     if (config.input === 'text') {
       // 绘制文字
-      const drawTextPosition = getDrawPosition(
-        canvas.width,
-        canvas.height,
-        config
-      );
+      const drawTextInfo = getDrawTextInfo(canvas.width, canvas.height, config);
       ctx.fillStyle = config.color;
       ctx.font = `${config.fontSize}px ${config.fontFamily}`;
-      ctx.textAlign = textAlignHash[config.position];
-      ctx.textBaseline = textBaselineHash[config.position];
-
-      ctx.fillText(config.text, drawTextPosition[0], drawTextPosition[1]);
-      resolve(canvas.toDataURL());
+      ctx.textAlign = drawTextInfo.textAlign;
+      ctx.textBaseline = drawTextInfo.textBaseline;
+      ctx.fillText(
+        config.text,
+        drawTextInfo.position[0],
+        drawTextInfo.position[1]
+      );
+      typeof callback === 'function' && callback(canvas, ctx);
+      if (config.dynamic) {
+        config.timer = setTimeout(clear, config.dynamicDuration);
+      }
     } else if (config.input === 'image') {
       // 绘制图像
       loadUrl(config.image).then((img) => {
-        const drawImageInfo = getDrawImagePositon(
+        const drawImageInfo = getDrawImageInfo(
           canvas.width,
           canvas.height,
           config,
@@ -143,10 +190,15 @@ function createWaterMark(ele, config) {
           drawImageInfo.size[0],
           drawImageInfo.size[1]
         );
-        resolve(canvas.toDataURL());
+        typeof callback === 'function' && callback(canvas, ctx);
+        if (config.dynamic) {
+          config.timer = setTimeout(clear, config.dynamicDuration);
+        }
       });
     }
-  });
+  };
+
+  drawFunction();
 }
 
 export default {
@@ -161,17 +213,20 @@ export default {
       type: String,
     },
     dynamic: {
-      // TODO: 动态显示
       type: Boolean,
       default: false,
     },
     dynamicDuration: {
       type: Number,
-      default: 1000,
+      default: 2000,
     },
     dynamicDelay: {
       type: Number,
-      default: 1000,
+      default: 2000,
+    },
+    dynamicPosition: {
+      type: Boolean,
+      default: false,
     },
     wmText: {
       type: String,
@@ -248,12 +303,13 @@ export default {
     return {
       domId: domId(),
       canvas: document.createElement('canvas'),
-      timer: null,
     };
   },
   computed: {
     config() {
       return {
+        dom: null,
+        timer: null,
         canvas: this.canvas,
         output: this.targetImage ? 'image' : 'dom',
         input: this.wmImage ? 'image' : 'text',
@@ -275,23 +331,24 @@ export default {
         dynamic: this.dynamic,
         dynamicDuration: this.dynamicDuration,
         dynamicDelay: this.dynamicDelay,
-        timer: this.timer,
+        dynamicPosition: this.dynamicPosition,
         // 图片
         image: this.wmImage,
         imageWidth: this.wmImageWidth,
         imageHeight: this.wmImageWidth,
+        targetImageWidth: null,
+        targetImageHeight: null,
       };
     },
   },
   mounted() {
+    const thisDom = document.getElementById(this.domId);
     if (this.config.output === 'dom') {
       // 水印元素
       const watermakr = document.createElement('div');
       // 父元素
       const targetNode =
-        this.target && this.target.nodeName
-          ? this.target
-          : document.getElementById(this.domId).parentNode;
+        this.target && this.target.nodeName ? this.target : thisDom.parentNode;
       if (
         ['relative', 'absolute', 'fixed'].indexOf(targetNode.style.position) ===
         -1
@@ -312,7 +369,10 @@ export default {
                 DEBUG && console.warn(`水印被删除`);
                 observer.disconnect();
                 // 清理定时器
-                this.timer = clearInterval(this.timer);
+                if (this.config.timer) {
+                  this.config.timer = clearTimeout(this.config.timer);
+                }
+
                 DEBUG && console.warn(`重新添加水印`);
                 addMaker();
               }
@@ -335,9 +395,10 @@ export default {
             pointer-events: none;
             background-repeat: repeat;`;
         targetNode.appendChild(watermakr);
-
-        createWaterMark(watermakr, this.config).then((img) => {
-          watermakr.style.backgroundImage = `url(${img})`;
+        this.config.dom = watermakr;
+        createWaterMark(this.config, (canvas) => {
+          observer.disconnect();
+          watermakr.style.backgroundImage = `url(${canvas.toDataURL()})`;
           // 监听元素
           observer.observe(document.body, {
             attributes: true,
@@ -348,8 +409,34 @@ export default {
       };
       addMaker();
     } else {
-      console.log(this.config);
-      loadUrl(this.targetImage).then((img) => {});
+      // 图片元素
+      loadUrl(this.targetImage).then((img) => {
+        this.config.targetImageWidth = img.width;
+        this.config.targetImageHeight = img.height;
+        // TODO 图片元素水印
+        createWaterMark(this.config, (canvas, ctx) => {
+          canvas.toBlob((blob) => {
+            const newImg = document.createElement('img');
+            const url = URL.createObjectURL(blob);
+            newImg.onload = function () {
+              // no longer need to read the blob so it's revoked
+              // URL.revokeObjectURL(url);
+              console.log(newImg);
+            };
+            newImg.src = url;
+
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            ctx.drawImage(img, 0, 0);
+            const pattern = ctx.createPattern(newImg, 'no-repeat');
+            ctx.fillStyle = pattern;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            thisDom.src = canvas.toDataURL();
+            // URL.revokeObjectURL(url);
+          });
+        });
+      });
     }
   },
 };
