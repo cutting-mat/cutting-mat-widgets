@@ -43,6 +43,7 @@
     </demo-block>
     <demo-block title="HLS加密">
       <video-player
+        ref="vpl"
         style="width: 100%; max-width: 600px"
         :options="{
           ...videoOptions,
@@ -55,6 +56,7 @@
             },
           },
         }"
+        :watermarkConfig="{ text: 'test123', color: '#fff', position: 5 }"
         @ready="handleReadyHLS"
       />
     </demo-block>

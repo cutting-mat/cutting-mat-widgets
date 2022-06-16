@@ -204,10 +204,7 @@ function createWaterMark(config, callback) {
 export default {
   name: 'watermark',
   props: {
-    target: {
-      // 挂载水印的DOM，默认组件父元素
-      type: Object,
-    },
+    target: null, // 挂载水印的DOM，默认组件父元素
     targetImage: {
       // TODO 图片元素src
       type: String,
@@ -359,7 +356,14 @@ export default {
       // 元素变动回调函数
       const callback = (mutationsList) => {
         mutationsList.forEach((mutation) => {
-          if (mutation.target === watermakr) {
+          if (
+            mutation.target === targetNode &&
+            mutation.type === 'attributes'
+          ) {
+            DEBUG && console.warn(`父元素被篡改`);
+            // 删除重新添加
+            targetNode.removeChild(watermakr);
+          } else if (mutation.target === watermakr) {
             DEBUG && console.warn(`水印被篡改`);
             // 删除重新添加
             targetNode.removeChild(watermakr);
@@ -393,7 +397,8 @@ export default {
             bottom: 0px;
             left: 0px;
             pointer-events: none;
-            background-repeat: repeat;`;
+            background-repeat: repeat;
+            z-index:9999`;
         targetNode.appendChild(watermakr);
         this.config.dom = watermakr;
         createWaterMark(this.config, (canvas) => {

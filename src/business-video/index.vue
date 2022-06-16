@@ -7,6 +7,7 @@
       controlslist="nodownload noremoteplayback"
       oncontextmenu="return false"
     ></video>
+    <watermark v-if="wmTarget" v-bind="watermarkConfig" :target="wmTarget" />
   </div>
 </template>
 
@@ -59,12 +60,20 @@ export default {
         return [];
       },
     },
+    watermarkConfig: {
+      // 水印组件设置
+      type: Object,
+      default() {
+        return {};
+      },
+    },
   },
   data() {
     return {
       domID: domId(),
       player: null,
       currentTime: 0,
+      wmTarget: null,
     };
   },
   computed: {
@@ -97,6 +106,10 @@ export default {
       loadPlugins.then(() => {
         this.$emit('ready', player);
       });
+      // 水印
+      if (this.watermarkConfig.text) {
+        this.wmTarget = document.getElementById(this.domID);
+      }
     });
 
     // 基本事件
