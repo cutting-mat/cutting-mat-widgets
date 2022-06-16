@@ -1,11 +1,9 @@
 <template>
-  <img v-if="targetImage" :src="targetImage" :id="domId" />
+  <img v-if="config.output === 'image'" :id="domId" />
   <div v-else :id="domId"></div>
 </template>
 
 <script>
-// TODO 图片/文字水印 动态水印 图片元素合成水印
-// https://github.com/brianium/watermarkjs/blob/master/lib/image/index.js
 import { domId } from '../__support/util';
 import { loadUrl } from './lib/util';
 // 调试开关
@@ -159,7 +157,7 @@ export default {
       type: Object,
     },
     targetImage: {
-      // 加水印的图片src
+      // TODO 图片元素src
       type: String,
     },
     dynamic: {
@@ -180,6 +178,7 @@ export default {
       default: '水印文字',
     },
     wmImage: {
+      // 图片水印
       type: String,
     },
     position: {
@@ -280,66 +279,73 @@ export default {
     },
   },
   mounted() {
-    // 水印元素
-    const watermakr = document.createElement('div');
-    // 父元素
-    const targetNode =
-      this.target && this.target.nodeName
-        ? this.target
-        : document.getElementById(this.domId).parentNode;
-    if (
-      ['relative', 'absolute', 'fixed'].indexOf(targetNode.style.position) ===
-      -1
-    ) {
-      DEBUG && console.warn(`重设targetNode.style.position`);
-      targetNode.style.position = 'relative';
-    }
-    // 元素变动回调函数
-    const callback = (mutationsList) => {
-      mutationsList.forEach((mutation) => {
-        if (mutation.target === watermakr) {
-          DEBUG && console.warn(`水印被篡改`);
-          // 删除重新添加
-          targetNode.removeChild(watermakr);
-        } else {
-          mutation.removedNodes.forEach((item) => {
-            if (item === watermakr) {
-              DEBUG && console.warn(`水印被删除`);
-              observer.disconnect();
-              // 清理定时器
-              this.timer = clearInterval(this.timer);
-              DEBUG && console.warn(`重新添加水印`);
-              addMaker();
-            }
-          });
-        }
-      });
-    };
-
-    const observer = new MutationObserver(callback);
-    const addMaker = () => {
-      watermakr.style = `position: ${
-        targetNode.tagName.toLocaleLowerCase() === 'body' ? 'fixed' : 'absolute'
+    if (this.config.output === 'dom') {
+      // 水印元素
+      const watermakr = document.createElement('div');
+      // 父元素
+      const targetNode =
+        this.target && this.target.nodeName
+          ? this.target
+          : document.getElementById(this.domId).parentNode;
+      if (
+        ['relative', 'absolute', 'fixed'].indexOf(targetNode.style.position) ===
+        -1
+      ) {
+        DEBUG && console.warn(`重设targetNode.style.position`);
+        targetNode.style.position = 'relative';
+      }
+      // 元素变动回调函数
+      const callback = (mutationsList) => {
+        mutationsList.forEach((mutation) => {
+          if (mutation.target === watermakr) {
+            DEBUG && console.warn(`水印被篡改`);
+            // 删除重新添加
+            targetNode.removeChild(watermakr);
+          } else {
+            mutation.removedNodes.forEach((item) => {
+              if (item === watermakr) {
+                DEBUG && console.warn(`水印被删除`);
+                observer.disconnect();
+                // 清理定时器
+                this.timer = clearInterval(this.timer);
+                DEBUG && console.warn(`重新添加水印`);
+                addMaker();
+              }
+            });
+          }
+        });
       };
+
+      const observer = new MutationObserver(callback);
+      const addMaker = () => {
+        watermakr.style = `position: ${
+          targetNode.tagName.toLocaleLowerCase() === 'body'
+            ? 'fixed'
+            : 'absolute'
+        };
             top: 0px;
             right: 0px;
             bottom: 0px;
             left: 0px;
             pointer-events: none;
             background-repeat: repeat;`;
-      targetNode.appendChild(watermakr);
+        targetNode.appendChild(watermakr);
 
-      createWaterMark(watermakr, this.config).then((img) => {
-        watermakr.style.backgroundImage = `url(${img})`;
-        // 监听元素
-        observer.observe(document.body, {
-          attributes: true,
-          childList: true,
-          subtree: true,
+        createWaterMark(watermakr, this.config).then((img) => {
+          watermakr.style.backgroundImage = `url(${img})`;
+          // 监听元素
+          observer.observe(document.body, {
+            attributes: true,
+            childList: true,
+            subtree: true,
+          });
         });
-      });
-    };
-    addMaker();
+      };
+      addMaker();
+    } else {
+      console.log(this.config);
+      loadUrl(this.targetImage).then((img) => {});
+    }
   },
 };
 </script>
