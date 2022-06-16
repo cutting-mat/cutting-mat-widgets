@@ -37,7 +37,7 @@ Vue.component('video-player', BusinessVideo);
 | options.RequestOption | HLS 相关请求配置，可自定义请求头或参数等，实现自定义鉴权， 如: `{headers: {Authorization: '123'}}` | _Object_  | `{}`   |
 | seekAble              | 是否可以拖拽快进                                                                                   | _Boolean_ | `true` |
 | subscribeTimes        | 监听一组播放进度，通过 `timeUp` 事件回调，示例：`[{time: 10}]`                                     | _Array_   | `[]`   |
-| watermarkConfig       | [水印组件](/#/base-watermark)配置，当`watermarkConfig.text`有值时将添加水印                        | _Object_  | `{}`   |
+| watermarkConfig       | [水印组件]()配置，当`watermarkConfig.text`有值时将添加水印                                         | _Object_  | `{}`   |
 
 ### CryptoConfig(加密配置)
 

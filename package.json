@@ -1,6 +1,6 @@
 {
   "name": "@cutting-mat/widgets",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -62,8 +62,7 @@
     "mux.js": "^6.1.0",
     "safe-json-parse": "^4.0.0",
     "video.js": "^7.19.2",
-    "videojs-vtt.js": "^0.15.3",
-    "wavesurfer.js": "^6.1.0"
+    "videojs-vtt.js": "^0.15.3"
   },
   "devDependencies": {
     "@vant/cli": "^2.11.5",

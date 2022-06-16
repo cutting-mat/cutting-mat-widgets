@@ -3,13 +3,6 @@
     <demo-block title="基础用法">
       <audio-player @ready="handleReady" />
     </demo-block>
-    <demo-block title="禁止拖拽">
-      <audio-player
-        @ready="handleReady"
-        :seek-able="false"
-        @heartbeat="handleHeartbeat"
-      />
-    </demo-block>
   </demo-section>
 </template>
 
