@@ -1399,10 +1399,10 @@
   dependencies:
     vue "^3.2.25"
 
-"@tower1229/videojs-plugin-source-switcher@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@tower1229/videojs-plugin-source-switcher/-/videojs-plugin-source-switcher-0.0.5.tgz#786f6bf86917bec54e546adb16fa5eda5a31f633"
-  integrity sha512-pXfvirYLV3u273ZGT7jXnxkZoXAyWqbJU977I9LM0WNhxVC0uXqclCgPjJhWmEdK5c02nl9D4t5RfxE3gcAU6g==
+"@tower1229/videojs-plugin-source-switcher@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@tower1229/videojs-plugin-source-switcher/-/videojs-plugin-source-switcher-0.0.6.tgz#2aff52edbff22d24b2406d0bc09eaa456775d8cf"
+  integrity sha512-OJnf23s/rhTNjC4JQC8lnIw2Sr9PWlPGV/qv7vXYLHebtYCKY4MHd0dxDya7AoFgYoi5DNPVp8cuF5qq70IaUQ==
   dependencies:
     vue "^3.2.25"
 

@@ -7,7 +7,12 @@
     </demo-block>
     <demo-block title="平铺模式">
       <div style="height: 400px; border: 1px solid">
-        <watermark repeat :position="5" wm-text="平铺水印文字" />
+        <watermark
+          repeat
+          :position="5"
+          wm-text="平铺水印文字"
+          font-family="sans-serif"
+        />
       </div>
     </demo-block>
     <demo-block title="图片水印">

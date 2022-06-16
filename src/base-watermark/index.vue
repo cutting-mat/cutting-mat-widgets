@@ -116,7 +116,7 @@ function createWaterMark(ele, config) {
         config
       );
       ctx.fillStyle = config.color;
-      ctx.font = `${config.fontSize}px serif`;
+      ctx.font = `${config.fontSize}px ${config.fontFamily}`;
       ctx.textAlign = textAlignHash[config.position];
       ctx.textBaseline = textBaselineHash[config.position];
 
@@ -204,6 +204,10 @@ export default {
       type: Number,
       default: 16,
     },
+    fontFamily: {
+      type: String,
+      default: 'serif',
+    },
     color: {
       // 文字颜色
       type: String,
@@ -260,6 +264,7 @@ export default {
         paddingY: this.paddingY,
         angle: this.angle,
         fontSize: this.fontSize,
+        fontFamily: this.fontFamily,
         color: this.color,
         opacity: this.opacity,
         // 平铺
