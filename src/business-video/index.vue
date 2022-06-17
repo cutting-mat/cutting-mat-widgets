@@ -22,6 +22,8 @@ import '@tower1229/videojs-plugin-marker/dist/style.css';
 import '@tower1229/videojs-plugin-source-switcher/dist/style.css';
 import zhCn from './lib/zh-CN.js';
 
+import watermark from '../base-watermark/index.vue';
+
 window.videojs = videojs;
 
 zhCn(videojs);
@@ -34,6 +36,9 @@ const loadPlugins = Promise.all([
 export default {
   name: `video-player`,
   emits: ['ready', 'ended', 'pause', 'play', 'timeUp'],
+  components: {
+    watermark,
+  },
   props: {
     options: {
       type: Object,

@@ -361,7 +361,11 @@ export default {
           ) {
             DEBUG && console.warn(`父元素被篡改`);
             // 删除重新添加
-            targetNode.removeChild(watermakr);
+            try {
+              targetNode.removeChild(watermakr);
+            } catch (err) {
+              return null;
+            }
           } else if (mutation.target === watermakr) {
             DEBUG && console.warn(`水印被篡改`);
             // 删除重新添加
