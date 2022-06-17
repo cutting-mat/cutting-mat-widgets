@@ -1,3 +1,3 @@
-# cutting-mat-widgets
+# @cutting-mat/widgets
 
-building
+Site: https://cutting-mat.github.io/cutting-mat-widgets/
