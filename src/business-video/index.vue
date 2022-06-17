@@ -108,9 +108,19 @@ export default {
         this.$emit('ready', player);
       });
       // 水印
-      if (this.watermarkConfig.wmText || this.watermarkConfig.wmImage) {
-        this.wmTarget = document.getElementById(this.domID);
-      }
+      const unwatch = this.$watch(
+        this.watermarkConfig,
+        () => {
+          if (this.watermarkConfig.wmText || this.watermarkConfig.wmImage) {
+            this.wmTarget = document.getElementById(this.domID);
+            unwatch();
+          }
+        },
+        {
+          deep: true,
+          immediate: true,
+        }
+      );
     });
 
     // 基本事件
