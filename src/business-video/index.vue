@@ -109,7 +109,7 @@ export default {
       });
       // 水印
       const unwatch = this.$watch(
-        this.watermarkConfig,
+        () => this.watermarkConfig,
         () => {
           if (this.watermarkConfig.wmText || this.watermarkConfig.wmImage) {
             this.wmTarget = document.getElementById(this.domID);

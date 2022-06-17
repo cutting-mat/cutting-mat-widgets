@@ -56,7 +56,12 @@
             },
           },
         }"
-        :watermarkConfig="{ text: 'test123', color: '#fff', position: 5 }"
+        :watermark-config="{
+          wmText: 'test123',
+          color: '#fff',
+          position: 5,
+          opacity: 0.5,
+        }"
         @ready="handleReadyHLS"
       />
     </demo-block>
