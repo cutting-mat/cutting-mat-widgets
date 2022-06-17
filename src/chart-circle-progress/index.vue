@@ -5,9 +5,11 @@
 <script>
 // TODO
 import * as echarts from 'echarts';
+// 调试开关
+const DEBUG = process.env.NODE_ENV === 'development';
 
 export default {
-  name: 'chart-circle-progress',
+  name: 'circle-progress',
   props: {
     percentage: {
       type: Number,
@@ -20,7 +22,7 @@ export default {
     },
     reverseColor: {
       type: String,
-      default: 'rgba(255,255,255,0.2)',
+      default: 'rgba(0,0,0,0.1)',
     },
     textColor: {
       type: String,

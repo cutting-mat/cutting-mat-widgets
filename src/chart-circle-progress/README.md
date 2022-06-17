@@ -1,16 +1,16 @@
-# DemoButton 按钮
+# ChartCircleProgress 按钮
 
 ### 介绍
 
-DemoButton 是一个示例按钮组件
+ChartCircleProgress 是一个环形进度条
 
 ### 引入
 
 ```js
 import Vue from 'vue';
-import { DemoButton } from '@cutting-mat/widgets';
+import { ChartCircleProgress } from '@cutting-mat/widgets';
 
-Vue.use(DemoButton);
+Vue.component('circle-progress', ChartCircleProgress);
 ```
 
 ## 代码演示
@@ -18,7 +18,7 @@ Vue.use(DemoButton);
 ### 基础用法
 
 ```html
-<base-button type="primary" />
+<circle-progress :percentage="50" />
 ```
 
 ## API

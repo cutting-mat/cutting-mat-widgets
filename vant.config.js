@@ -50,6 +50,10 @@ module.exports = {
             path: 'chart-bar-progress',
             title: '柱状进度条',
           },
+          {
+            path: 'chart-circle-progress',
+            title: '环形进度条',
+          },
         ],
       },
       {
