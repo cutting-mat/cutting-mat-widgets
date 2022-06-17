@@ -108,12 +108,13 @@ export default {
         this.$emit('ready', player);
       });
       // 水印
-      const unwatch = this.$watch(
+      let unwatch;
+      unwatch = this.$watch(
         () => this.watermarkConfig,
         () => {
           if (this.watermarkConfig.wmText || this.watermarkConfig.wmImage) {
             this.wmTarget = document.getElementById(this.domID);
-            unwatch();
+            unwatch && unwatch();
           }
         },
         {
