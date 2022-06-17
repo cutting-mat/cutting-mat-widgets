@@ -1,25 +1,37 @@
 <template>
   <demo-section>
     <demo-block title="基础用法">
-      <bar-progress :percentage="50" />
+      <bar-progress :percentage="value1" reverseColor="#fff" />
     </demo-block>
-    <demo-block title="labelType=2">
-      <bar-progress :percentage="50" label-type="2" />
+
+    <demo-block title="展示label">
+      <bar-progress :percentage="value3" withLabel :strokeWidth="20" />
     </demo-block>
-    <demo-block title="labelType=3">
-      <bar-progress :percentage="50" label-type="3" />
-    </demo-block>
-    <demo-block title="自定义标题">
-      <bar-progress :percentage="50" label-type="2">
-        <div style="width: 4em; color: #999; font-size: 12px">完成度</div>
-      </bar-progress>
-    </demo-block>
-    <demo-block title="自定义文字">
-      <bar-progress :percentage="50" label-type="2">
-        <template slot="value">
-          <div style="width: 4em; color: #999; text-align: right">(50)</div>
-        </template>
-      </bar-progress>
+    <demo-block title="展示文字">
+      <bar-progress :percentage="value2" withText :strokeWidth="25" />
     </demo-block>
   </demo-section>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      value1: Math.round(Math.random() * 100),
+      value2: Math.round(Math.random() * 100),
+      value3: Math.round(Math.random() * 100),
+      refreshTimer: null,
+    };
+  },
+  created() {
+    this.refreshTimer = setInterval(() => {
+      this.value1 = Math.round(Math.random() * 100);
+      this.value2 = Math.round(Math.random() * 100);
+      this.value3 = Math.round(Math.random() * 100);
+    }, 5000);
+  },
+  beforeDestroy() {
+    this.refreshTimer = clearInterval(this.refreshTimer);
+  },
+};
+</script>

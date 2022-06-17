@@ -1,27 +1,22 @@
 <template>
   <div class="BarProgress">
-    <slot name="default" />
     <div class="_bar" :style="wrapStyle">
       <div class="_p" :style="progressStyle">
-        <div
-          v-if="labelType == 3"
-          :class="['_label', '_label_' + labelType]"
-          :style="labelStyle"
-        >
-          <span class="_text"> {{ percentage }}% </span>
+        <div v-if="withLabel" class="_label" :style="labelStyle">
+          <span class="_t"> {{ percentage }}% </span>
+        </div>
+        <div v-else-if="withText" class="_text">
+          <span class="_t"> {{ percentage }}% </span>
         </div>
       </div>
     </div>
-    <slot name="value" v-if="labelType != 3">
-      <div :class="['_label', '_label_' + labelType]" :style="labelStyle">
-        <span class="_text"> {{ percentage }}% </span>
-      </div>
-    </slot>
   </div>
 </template>
 
 <script>
-// TODO
+// 调试开关
+const DEBUG = process.env.NODE_ENV === 'development';
+
 export default {
   name: 'bar-progress',
   props: {
@@ -32,11 +27,11 @@ export default {
     },
     color: {
       type: String,
-      default: '#3ed7f5',
+      default: '#4fc08d',
     },
     reverseColor: {
       type: String,
-      default: 'rgba(255,255,255,0.2)',
+      default: 'rgba(0,0,0,0.1)',
     },
     strokeWidth: {
       type: Number,
@@ -45,15 +40,13 @@ export default {
     borderRadius: {
       type: Number,
     },
-    labelType: {
-      // label类型 1: 右上,2：右,3：跟随
-      type: [Number, String],
-      default: '1',
+    withLabel: {
+      type: Boolean,
+      default: false,
     },
-    labelColor: {
-      type: String,
-      required: false,
-      default: '#3ed7f5',
+    withText: {
+      type: Boolean,
+      default: false,
     },
     duration: {
       // 动画时长
@@ -68,6 +61,7 @@ export default {
     wrapStyle() {
       return {
         height: `${this.strokeWidth}px`,
+        lineHeight: `${this.strokeWidth}px`,
         borderRadius: `${
           this.borderRadius === undefined
             ? this.strokeWidth / 2
@@ -90,8 +84,8 @@ export default {
     },
     labelStyle() {
       return {
-        background: `${Number(this.labelType) === 3 ? this.labelColor : ''}`,
-        color: `${this.labelColor}`,
+        background: `${this.color}`,
+        color: `${this.color}`,
       };
     },
   },
@@ -114,46 +108,41 @@ export default {
   height: 100%;
   width: 0;
 }
+/* label */
 .BarProgress ._label {
-  width: 3em;
-  padding: 0 0.4em;
-  text-align: center;
-}
-
-/* 右上 */
-.BarProgress ._label_1 {
-  position: absolute;
-  bottom: 100%;
-  right: 0;
-  line-height: 1.7;
-  background: none !important;
-}
-/* 跟随 */
-.BarProgress ._label_3 {
   position: absolute;
   bottom: 100%;
   margin-bottom: 8px;
   left: 100%;
-  line-height: 1.7;
+  padding: 0 0.5em;
   border-radius: 4px;
   transform: translateX(-50%);
-  width: auto;
+  font-size: 12px;
+  height: 1.8em;
+  line-height: 1.8em;
 }
-.BarProgress ._label_3::before {
+.BarProgress ._label::after {
   content: '';
   position: absolute;
   top: 100%;
   left: 50%;
-  margin-left: -8px;
-  margin-top: -2px;
+  margin-left: -6px;
+  margin-top: -1px;
   width: 0;
   height: 0;
-  border: 8px solid;
+  border: 6px solid;
   border-right-color: transparent;
   border-bottom-color: transparent;
   border-left-color: transparent;
 }
-.BarProgress ._label_3 ._text {
+.BarProgress ._t {
   color: #fff;
+}
+/* text */
+.BarProgress ._text {
+  position: absolute;
+  right: 0;
+  padding: 0 0.5em;
+  font-size: 12px;
 }
 </style>
