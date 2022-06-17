@@ -7,22 +7,17 @@
     </demo-block>
     <demo-block title="平铺模式">
       <div style="height: 400px; border: 1px solid">
-        <watermark
-          repeat
-          :position="5"
-          wm-text="平铺水印文字"
-          font-family="sans-serif"
-        />
+        <watermark repeat :position="7" :angle="-30" />
       </div>
     </demo-block>
-    <demo-block title="动态显示">
+    <demo-block title="动态水印">
       <div style="height: 200px; border: 1px solid">
         <watermark dynamic />
       </div>
     </demo-block>
     <demo-block title="动态随机位置">
       <div style="height: 200px; border: 1px solid">
-        <watermark dynamic dynamic-position :dynamic-delay="500" />
+        <watermark dynamic dynamic-position :dynamic-delay="0" />
       </div>
     </demo-block>
     <demo-block title="图片水印">
@@ -38,8 +33,7 @@
         <watermark
           style="display: block; max-width: 100%"
           target-image="https://static.refined-x.com/static/avatar.jpg"
-          wm-text="一段水印文字"
-          color="red"
+          color="#fff"
           :opacity="0.5"
         />
       </div>
