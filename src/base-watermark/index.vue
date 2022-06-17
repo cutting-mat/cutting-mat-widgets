@@ -429,19 +429,19 @@ export default {
             newImg.onload = function () {
               // no longer need to read the blob so it's revoked
               // URL.revokeObjectURL(url);
-              console.log(newImg);
+              console.log(newImg, newImg.width, newImg.height);
+              canvas.width = img.width;
+              canvas.height = img.height;
+
+              ctx.drawImage(img, 0, 0);
+              ctx.drawImage(newImg, 0, 0);
+              thisDom.src = canvas.toDataURL();
             };
             newImg.src = url;
 
-            canvas.width = img.width;
-            canvas.height = img.height;
-
-            ctx.drawImage(img, 0, 0);
-            const pattern = ctx.createPattern(newImg, 'no-repeat');
-            ctx.fillStyle = pattern;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            thisDom.src = canvas.toDataURL();
-            // URL.revokeObjectURL(url);
+            // const pattern = ctx.createPattern(newImg, 'no-repeat');
+            // ctx.fillStyle = pattern;
+            // ctx.fillRect(0, 0, canvas.width, canvas.height);
           });
         });
       });

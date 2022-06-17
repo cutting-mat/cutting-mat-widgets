@@ -30,14 +30,15 @@ Vue.component('scroll-list', BaseScrollList);
 
 ### Props
 
-| 参数         | 说明             | 类型      | 默认值 |
-| ------------ | ---------------- | --------- | ------ |
-| list         | 显示的数据       | _Array_   | `[]`   |
-| pageSize     | 列表展示的条数   | _Number_  | `10`   |
-| defaultIndex | 从哪一条开始展示 | _Number_  | `0`    |
-| interval     | 动画间隔 ms      | _Number_  | `4000` |
-| duration     | 动画时长 ms      | _Number_  | `500`  |
-| loop         | 是否循环滚动     | _Boolean_ | `true` |
+| 参数           | 说明                   | 类型      | 默认值  |
+| -------------- | ---------------------- | --------- | ------- |
+| list           | 显示的数据             | _Array_   | `[]`    |
+| pageSize       | 列表展示的条数         | _Number_  | `10`    |
+| defaultIndex   | 从哪一条开始展示       | _Number_  | `0`     |
+| interval       | 动画间隔 ms            | _Number_  | `4000`  |
+| duration       | 动画时长 ms            | _Number_  | `500`   |
+| loop           | 数据不足时循环加载数据 | _Boolean_ | `true`  |
+| pauseOnMousein | 鼠标进入时暂停         | _Boolean_ | `false` |
 
 ### Events
 

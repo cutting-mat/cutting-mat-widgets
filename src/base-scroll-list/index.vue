@@ -1,5 +1,10 @@
 <template>
-  <div class="ScrollList" ref="ScrollList">
+  <div
+    class="ScrollList"
+    ref="ScrollList"
+    @mouseenter="handleMouseenter"
+    @mouseleave="handleMouseleave"
+  >
     <div class="_wrap">
       <ul class="_page _page_before">
         <li
@@ -81,6 +86,11 @@ export default {
       type: Boolean,
       default: true,
     },
+    pauseOnMousein: {
+      // 鼠标进入时暂停
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -90,6 +100,7 @@ export default {
       page1Data: [],
       page2Data: [],
       canMoveOn: true,
+      mouseenterTime: 0,
     };
   },
   watch: {
@@ -109,7 +120,7 @@ export default {
     },
     currentIndex() {
       if (this.canMoveOn) {
-        this.moveOn();
+        this.moveAnimate();
       }
     },
   },
@@ -124,7 +135,7 @@ export default {
       // 强制刷新
       this.$forceUpdate();
     },
-    moveOn() {
+    moveAnimate() {
       const wrapDom = this.$refs.ScrollList.querySelector('._wrap');
       if (wrapDom) {
         // transition: all ease 0.5s
@@ -163,15 +174,35 @@ export default {
           DEBUG && console.warn(`找不到 ._item 元素`);
         }
       });
-      // 设置定时器
+      // 开始
+      this.moveOn();
+    },
+    moveOn() {
       if (this.canMoveOn && this.interval) {
-        this.timehandler = setInterval(() => {
-          if (this.currentIndex < this.list.length - 1) {
-            this.currentIndex++;
-          } else {
-            this.currentIndex = 0;
-          }
-        }, this.interval);
+        if (this.currentIndex < this.list.length - 1) {
+          this.currentIndex++;
+        } else {
+          this.currentIndex = 0;
+        }
+        this.timehandler = setTimeout(this.moveOn, this.interval);
+      }
+    },
+    moveOnStop() {
+      if (this.timehandler) {
+        this.timehandler = clearTimeout(this.timehandler);
+      }
+    },
+    handleMouseenter() {
+      if (this.pauseOnMousein) {
+        this.mouseenterTime = new Date().getTime();
+        this.moveOnStop();
+      }
+    },
+    handleMouseleave() {
+      if (this.pauseOnMousein) {
+        const timesGone = new Date().getTime() - this.mouseenterTime;
+        const timesLeft = this.interval - timesGone;
+        setTimeout(this.moveOn, Math.max(timesLeft, 0));
       }
     },
   },

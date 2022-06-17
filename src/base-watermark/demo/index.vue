@@ -29,14 +29,18 @@
       <div style="height: 400px; border: 1px solid">
         <watermark
           wm-image="https://static.refined-x.com/static/avatar.jpg"
-          :wmImageWidth="100"
+          :wm-image-width="100"
         />
       </div>
     </demo-block>
     <demo-block title="支持图片叠加水印">
-      <div style="height: 400px; border: 1px solid">
+      <div style="min-height: 400px; border: 1px solid">
         <watermark
+          style="display: block; max-width: 100%"
           target-image="https://static.refined-x.com/static/avatar.jpg"
+          wm-text="一段水印文字"
+          color="red"
+          :opacity="0.5"
         />
       </div>
     </demo-block>
