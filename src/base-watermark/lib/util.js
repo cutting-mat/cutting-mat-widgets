@@ -212,15 +212,27 @@ export const createWaterMark = function (config, callback) {
     } else if (config.text) {
       // 绘制文字
       const drawTextInfo = getDrawTextInfo(canvas.width, canvas.height, config);
-      ctx.fillStyle = config.color;
       ctx.font = `${config.fontSize}px ${config.fontFamily}`;
       ctx.textAlign = drawTextInfo.textAlign;
       ctx.textBaseline = drawTextInfo.textBaseline;
+
+      // 描边
+      if (config.strokeColor) {
+        console.warn('strokeColor', config.strokeColor);
+        ctx.strokeStyle = config.strokeColor;
+        ctx.strokeText(
+          config.text,
+          drawTextInfo.position[0],
+          drawTextInfo.position[1]
+        );
+      }
+      ctx.fillStyle = config.color;
       ctx.fillText(
         config.text,
         drawTextInfo.position[0],
         drawTextInfo.position[1]
       );
+
       typeof callback === 'function' && callback(canvas, ctx);
       if (config.dynamic) {
         config.timer = setTimeout(clear, config.dynamicDuration);

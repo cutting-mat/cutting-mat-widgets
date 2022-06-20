@@ -66,12 +66,16 @@ export default {
     },
     fontFamily: {
       type: String,
-      default: 'serif',
+      default: 'sans-serif',
     },
     color: {
       // 文字颜色
       type: String,
       default: '#000',
+    },
+    strokeColor: {
+      // 文字描边颜色
+      type: String,
     },
     opacity: {
       // 透明度
@@ -134,6 +138,7 @@ export default {
         fontSize: this.fontSize,
         fontFamily: this.fontFamily,
         color: this.color,
+        strokeColor: this.strokeColor,
         opacity: this.opacity,
         // 平铺
         repeat: this.repeat,

@@ -37,6 +37,7 @@ Vue.component('watermark', BaseWatermark);
 | fontSize        | 文字水印字号                                                          | _number_  | `16`            |
 | fontFamily      | 文字水印的字体                                                        | _string_  | `serif`         |
 | color           | 文字水印颜色                                                          | _string_  | `#000`          |
+| strokeColor     | 文字描边颜色，默认无描边                                              | _string_  | -               |
 | opacity         | 水印透明度，取值 0~1 之间                                             | _number_  | `0.3`           |
 | repeat          | 水印是否重复平铺                                                      | _Boolean_ | `false`         |
 | repeatWidth     | 重复平铺的单元宽度，与`repeat`配合使用调整水印密度                    | _number_  | `180`           |
