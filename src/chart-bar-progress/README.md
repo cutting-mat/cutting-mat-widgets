@@ -29,7 +29,7 @@ Vue.component('bar-progress', ChartBarProgress);
 | ------------ | ---------------- | --------------- | ----------------------- |
 | percentage   | 进度百分比       | _string,number_ | `0`                     |
 | color        | 进度条颜色       | _string_        | '#3ed7f5'               |
-| reverseColor | 进度条底色       | _string_        | 'rgba(255,255,255,0.2)' |
+| reverseColor | 进度条底色       | _string_        | 'rgba(255,255,255,0.1)' |
 | strokeWidth  | 进度条宽度       | _number_        | `14`                    |
 | borderRadius | 进度条圆角尺寸   | _number_        | `strokeWidth/2`         |
 | withLabel    | 展示跟随标签     | _boolean_       | `false`                 |

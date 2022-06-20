@@ -25,19 +25,21 @@ Vue.component('circle-progress', ChartCircleProgress);
 
 ### Props
 
-| 参数          | 说明     | 类型     | 默认值    |
-| ------------- | -------- | -------- | --------- |
-| type          | 按钮类型 | _string_ | `primary` |
-| color `1.0.0` | 按钮颜色 | _string_ | -         |
+| 参数         | 说明                            | 类型            | 默认值                  |
+| ------------ | ------------------------------- | --------------- | ----------------------- |
+| percentage   | 进度百分比                      | _string,number_ | `0`                     |
+| color        | 进度条颜色                      | _string_        | '#3ed7f5'               |
+| reverseColor | 进度条底色                      | _string_        | 'rgba(255,255,255,0.1)' |
+| strokeWidth  | 进度条宽度                      | _number_        | `25`                    |
+| text         | 中心文字                        | _string_        | -                       |
+| textColor    | 中心文字颜色，默认与`color`一致 | _string_        | `this.color`            |
 
 ### Events
 
-| 事件名 | 说明       | 回调参数            |
-| ------ | ---------- | ------------------- |
-| click  | 点击时触发 | _event: MouseEvent_ |
+| 事件名 | 说明 | 回调参数 |
+| ------ | ---- | -------- |
 
 ### Slots
 
-| 名称    | 说明     |
-| ------- | -------- |
-| default | 默认插槽 |
+| 名称 | 说明 |
+| ---- | ---- |

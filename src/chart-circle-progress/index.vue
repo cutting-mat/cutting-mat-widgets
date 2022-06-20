@@ -18,11 +18,16 @@ export default {
     },
     color: {
       type: String,
-      default: '#FF974C',
+      default: '#4fc08d',
     },
     reverseColor: {
       type: String,
       default: 'rgba(0,0,0,0.1)',
+    },
+    text: {
+      // 中心文字
+      type: String,
+      required: false,
     },
     textColor: {
       type: String,
@@ -50,23 +55,19 @@ export default {
   },
   methods: {
     draw() {
-      const data = this.percentage;
-
-      let option = {
+      const option = {
         title: {
-          text: `${data}%`, //主标题文本
+          text: this.text || undefined, // 主标题文本
           left: 'center',
           top: 'center',
           textStyle: {
             fontWeight: 'normal',
             fontSize: Math.max(16, 45 - this.strokeWidth),
-            fontFamily: 'impact-2',
             color: this.textColor || this.color,
           },
         },
         series: [
           {
-            name: 'Access From',
             type: 'pie',
             radius: [`${95 - this.strokeWidth}%`, '95%'],
             hoverAnimation: false,
@@ -84,14 +85,14 @@ export default {
             },
             data: [
               {
-                value: data,
+                value: this.percentage,
                 name: 'Progress',
                 itemStyle: {
                   color: this.color,
                 },
               },
               {
-                value: 100 - data,
+                value: 100 - this.percentage,
                 name: '',
                 itemStyle: {
                   color: this.reverseColor, // 反色
