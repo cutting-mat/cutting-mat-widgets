@@ -30,11 +30,11 @@ module.exports = {
         title: '基础组件',
         items: [
           {
-            path: 'base-watermark',
+            path: 'watermark',
             title: '水印',
           },
           {
-            path: 'base-scroll-list',
+            path: 'scroll-list',
             title: '滚动列表',
           },
         ],
@@ -47,11 +47,11 @@ module.exports = {
             title: '柱形/线形图表(todo)',
           },
           {
-            path: 'chart-bar-progress',
+            path: 'bar-progress',
             title: '柱状进度条',
           },
           {
-            path: 'chart-circle-progress',
+            path: 'circle-progress',
             title: '环形进度条(todo)',
           },
         ],
@@ -60,11 +60,11 @@ module.exports = {
         title: '业务组件',
         items: [
           {
-            path: 'business-video',
+            path: 'video-player',
             title: '视频播放',
           },
           {
-            path: 'business-audio',
+            path: 'audio-player',
             title: '音频播放(todo)',
           },
         ],
@@ -73,7 +73,7 @@ module.exports = {
         title: '布局组件',
         items: [
           {
-            path: 'layout-button',
+            path: '__template',
             title: 'layout template',
           },
         ],
@@ -82,7 +82,7 @@ module.exports = {
         title: '区块组件',
         items: [
           {
-            path: 'block-button',
+            path: '__template',
             title: 'block template',
           },
         ],
@@ -91,7 +91,7 @@ module.exports = {
         title: '页面组件',
         items: [
           {
-            path: 'page-button',
+            path: '__template',
             title: 'page template',
           },
         ],
@@ -100,7 +100,7 @@ module.exports = {
         title: '模板组件',
         items: [
           {
-            path: 'template-button',
+            path: '__template',
             title: 'template template',
           },
         ],

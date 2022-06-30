@@ -28,7 +28,7 @@ echarts.use([
 ]);
 
 export default {
-  name: 'chart',
+  name: 'Chart',
   props: {
     data: {
       type: Array,

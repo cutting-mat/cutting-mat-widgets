@@ -1,16 +1,16 @@
-# 柱形/线形图表
+# DemoButton 按钮
 
 ### 介绍
 
-基于 Echart 封装的图表组件，支持线、柱两种类型
+DemoButton 是一个示例按钮组件
 
 ### 引入
 
 ```js
 import Vue from 'vue';
-import { Chart } from '@cutting-mat/widgets';
+import { DemoButton } from '@cutting-mat/widgets';
 
-Vue.use(Chart);
+Vue.use(DemoButton);
 ```
 
 ## 代码演示
@@ -18,7 +18,7 @@ Vue.use(Chart);
 ### 基础用法
 
 ```html
-<chart :data="data1" />
+<my-component type="primary" />
 ```
 
 ## API
