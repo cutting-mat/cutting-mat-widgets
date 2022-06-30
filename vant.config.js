@@ -12,6 +12,12 @@ module.exports = {
     title: 'cutting-mat-widgets',
     logo: 'http://cutting-mat.refined-x.com/logo.png',
     description: 'Vue 组件库',
+    links: [
+      {
+        url: 'https://github.com/cutting-mat/cutting-mat-widgets',
+        logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/github.svg',
+      },
+    ],
     nav: [
       {
         title: '开发指南',
