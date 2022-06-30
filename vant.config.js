@@ -11,7 +11,7 @@ module.exports = {
   site: {
     title: 'cutting-mat-widgets',
     logo: 'http://cutting-mat.refined-x.com/logo.png',
-    hideSimulator: false,
+    description: 'Vue 组件库',
     nav: [
       {
         title: '开发指南',
