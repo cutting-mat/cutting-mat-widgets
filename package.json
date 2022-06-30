@@ -61,7 +61,6 @@
     "mpd-parser": "^0.21.1",
     "mux.js": "^6.1.0",
     "safe-json-parse": "^4.0.0",
-    "video.js": "^7.19.2",
     "videojs-vtt.js": "^0.15.3"
   },
   "devDependencies": {
