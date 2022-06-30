@@ -92,6 +92,7 @@ export default {
       default: false,
     },
   },
+  emits: ['animateEnd'],
   data() {
     return {
       itemHeight: 0,
@@ -132,8 +133,6 @@ export default {
       const nextPageIndex =
         (this.currentIndex + this.pageSize) % this.list.length;
       this.page2Data = getPageData(nextPageIndex, this.pageSize, this.list);
-      // 强制刷新
-      this.$forceUpdate();
     },
     moveAnimate() {
       const wrapDom = this.$refs.ScrollList.querySelector('._wrap');

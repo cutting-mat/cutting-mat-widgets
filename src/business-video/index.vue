@@ -2,7 +2,7 @@
   <div style="width: 100%; height: 100%">
     <video
       :id="domID"
-      class="video-js vjs-theme-fantasy"
+      class="video-js"
       style="width: 100%; height: 100%"
       controlslist="nodownload noremoteplayback"
       oncontextmenu="return false"
@@ -17,7 +17,6 @@ import { domId } from '../__support/util.js';
 import videojs from './lib/video.js';
 
 import './lib/video-js.min.css';
-import '@videojs/themes/dist/fantasy/index.css';
 import '@tower1229/videojs-plugin-marker/dist/style.css';
 import '@tower1229/videojs-plugin-source-switcher/dist/style.css';
 import zhCn from './lib/zh-CN.js';
@@ -34,8 +33,7 @@ const loadPlugins = Promise.all([
 ]);
 
 export default {
-  name: `video-player`,
-  emits: ['ready', 'ended', 'pause', 'play', 'timeUp'],
+  name: `VideoPlayer`,
   components: {
     watermark,
   },
@@ -74,6 +72,7 @@ export default {
       },
     },
   },
+  emits: ['ready', 'ended', 'pause', 'play', 'timeUp'],
   data() {
     return {
       domID: domId(),
@@ -182,23 +181,4 @@ export default {
 };
 </script>
 
-<style scoped>
-/* 主题样式bug */
-.vjs-theme-fantasy >>> .vjs-volume-bar {
-  margin-top: 2em;
-}
-
-.vjs-theme-fantasy >>> .vjs-playback-rate-value {
-  line-height: 54px;
-}
-.vjs-theme-fantasy >>> .vjs-menu-content {
-  bottom: 54px;
-}
-
-.vjs-theme-fantasy >>> .vjs-resolution-button-label {
-  line-height: 54px;
-}
-.vjs-theme-fantasy >>> .vjs-menu-button-popup .vjs-menu {
-  margin-bottom: 0;
-}
-</style>
+<style scoped></style>

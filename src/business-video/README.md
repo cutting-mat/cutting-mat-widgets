@@ -8,9 +8,9 @@
 
 ```js
 import Vue from 'vue';
-import { Video } from '@cutting-mat/widgets';
+import { VideoPlayer } from '@cutting-mat/widgets';
 
-Vue.component('video-player', Video);
+Vue.component('video-player', VideoPlayer);
 ```
 
 ## 代码演示
@@ -43,12 +43,12 @@ Vue.component('video-player', Video);
 
 视频加密逻辑是在 HLS 加密基础上，将 key 的内容进行私有强加密，前端播放器需要先将 key 的内容进行解密，然后才能正常播放加密后的 m3u8 视频。
 
-| 参数         | 说明                                                       | 类型                          | 默认值                                   |
-| ------------ | ---------------------------------------------------------- | ----------------------------- | ---------------------------------------- |
-| Enable       | 开启加密                                                   | _Boolean_                     | `false`                                  |
-| Debug        | 开启调试 log                                               | _Boolean_                     | `process.env.NODE_ENV === "development"` |
-| GetSecretKey | 获取加密密钥方法，需返回密钥字符串。支持异步(返回 Promise) | _Function()_                  | `--`                                     |
-| DecryptData  | 解密方法，需返回解密后的内容                               | _Function(string, SecretKey)_ | `--`                                     |
+| 参数         | 说明                                                       | 类型                          | 默认值             |
+| ------------ | ---------------------------------------------------------- | ----------------------------- | ------------------ |
+| Enable       | 开启加密                                                   | _Boolean_                     | `false`            |
+| Debug        | 开启调试 log                                               | _Boolean_                     | `开发模式自动开启` |
+| GetSecretKey | 获取加密密钥方法，需返回密钥字符串。支持异步(返回 Promise) | _Function()_                  | `--`               |
+| DecryptData  | 解密方法，需返回解密后的内容                               | _Function(string, SecretKey)_ | `--`               |
 
 ### Events
 
@@ -62,8 +62,8 @@ Vue.component('video-player', Video);
 
 ### Methods
 
-| 方法名         | 说明                                                                              | 参数                                                                              |
-| -------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| markerPlugin   | 集成[视频打点插件](https://github.com/tower1229/videojs-plugin-marker)            | 打点配置，示例：`{markers: [{ offset: 2,}, ],}`                                   |
-| SwitcherPlugin | 集成[视频源切换插件](https://github.com/tower1229/videojs-plugin-source-switcher) | `--`                                                                              |
-| updateSrc      | 动态配置视频源                                                                    | 详见[视频源切换插件](https://github.com/tower1229/videojs-plugin-source-switcher) |
+| 方法名         | 说明                                                                              | 参数                                            |
+| -------------- | --------------------------------------------------------------------------------- | ----------------------------------------------- |
+| markerPlugin   | 集成[视频打点插件](https://github.com/tower1229/videojs-plugin-marker)            | 打点配置，示例：`{markers: [{ offset: 2,}, ],}` |
+| SwitcherPlugin | 集成[视频源切换插件](https://github.com/tower1229/videojs-plugin-source-switcher) | `--`                                            |
+| updateSrc      | 动态配置视频源                                                                    | 详见[视频源切换插件文档]()                      |
