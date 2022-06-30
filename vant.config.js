@@ -14,6 +14,10 @@ module.exports = {
     description: 'Vue 组件库',
     links: [
       {
+        url: 'https://cutting-mat.github.io/',
+        logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/weapp.svg',
+      },
+      {
         url: 'https://github.com/cutting-mat/cutting-mat-widgets',
         logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/github.svg',
       },
