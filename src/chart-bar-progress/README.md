@@ -1,16 +1,16 @@
-# ChartBarProgress 按钮
+# BarProgress 按钮
 
 ### 介绍
 
-ChartBarProgress 是横向进度条组件
+BarProgress 是横向进度条组件
 
 ### 引入
 
 ```js
 import Vue from 'vue';
-import { ChartBarProgress } from '@cutting-mat/widgets';
+import { BarProgress } from '@cutting-mat/widgets';
 
-Vue.component('bar-progress', ChartBarProgress);
+Vue.component('bar-progress', BarProgress);
 ```
 
 ## 代码演示

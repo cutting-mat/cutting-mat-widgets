@@ -1,16 +1,16 @@
-# BaseScrollList 按钮
+# ScrollList 滚动列表
 
 ### 介绍
 
-BaseScrollList 是滚动列表展示组件
+ScrollList 可以快捷展示一个纵向滚动的列表
 
 ### 引入
 
 ```js
 import Vue from 'vue';
-import { BaseScrollList } from '@cutting-mat/widgets';
+import { ScrollList } from '@cutting-mat/widgets';
 
-Vue.component('scroll-list', BaseScrollList);
+Vue.component('scroll-list', ScrollList);
 ```
 
 ## 代码演示

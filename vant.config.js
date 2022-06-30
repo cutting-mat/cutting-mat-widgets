@@ -44,7 +44,7 @@ module.exports = {
         items: [
           {
             path: 'chart',
-            title: '柱形/线形图表',
+            title: '柱形/线形图表(todo)',
           },
           {
             path: 'chart-bar-progress',
@@ -52,7 +52,7 @@ module.exports = {
           },
           {
             path: 'chart-circle-progress',
-            title: '环形进度条',
+            title: '环形进度条(todo)',
           },
         ],
       },
@@ -65,7 +65,7 @@ module.exports = {
           },
           {
             path: 'business-audio',
-            title: '音频播放',
+            title: '音频播放(todo)',
           },
         ],
       },
@@ -74,7 +74,7 @@ module.exports = {
         items: [
           {
             path: 'layout-button',
-            title: 'layout 按钮',
+            title: 'layout template',
           },
         ],
       },
@@ -83,7 +83,7 @@ module.exports = {
         items: [
           {
             path: 'block-button',
-            title: 'block 按钮',
+            title: 'block template',
           },
         ],
       },
@@ -92,7 +92,7 @@ module.exports = {
         items: [
           {
             path: 'page-button',
-            title: 'page 按钮',
+            title: 'page template',
           },
         ],
       },
@@ -101,7 +101,7 @@ module.exports = {
         items: [
           {
             path: 'template-button',
-            title: 'template 按钮',
+            title: 'template template',
           },
         ],
       },

@@ -1,16 +1,16 @@
-# BusinessVideo 视频播放器
+# 视频播放器
 
 ### 介绍
 
-BusinessVideo 是一个 HTML5 视频播放器
+一个 HTML5 视频播放器
 
 ### 引入
 
 ```js
 import Vue from 'vue';
-import { BusinessVideo } from '@cutting-mat/widgets';
+import { Video } from '@cutting-mat/widgets';
 
-Vue.component('video-player', BusinessVideo);
+Vue.component('video-player', Video);
 ```
 
 ## 代码演示
@@ -60,8 +60,10 @@ Vue.component('video-player', BusinessVideo);
 | ended  | 结束播放                                     | 无                              |
 | timeUp | 到达监听的播放进度，配合`subscribeTimes`使用 | Object: subscribeTimes 数据对象 |
 
-### Slots
+### Methods
 
-| 名称 | 说明 |
-| ---- | ---- |
-| 无   | ``   |
+| 方法名         | 说明                                                                              | 参数                                                                              |
+| -------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| markerPlugin   | 集成[视频打点插件](https://github.com/tower1229/videojs-plugin-marker)            | 打点配置，示例：`{markers: [{ offset: 2,}, ],}`                                   |
+| SwitcherPlugin | 集成[视频源切换插件](https://github.com/tower1229/videojs-plugin-source-switcher) | `--`                                                                              |
+| updateSrc      | 动态配置视频源                                                                    | 详见[视频源切换插件](https://github.com/tower1229/videojs-plugin-source-switcher) |

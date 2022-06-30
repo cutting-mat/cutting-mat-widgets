@@ -1,16 +1,16 @@
-# ChartCircleProgress 按钮
+# CircleProgress 按钮
 
 ### 介绍
 
-ChartCircleProgress 是一个环形进度条
+CircleProgress 是一个环形进度条
 
 ### 引入
 
 ```js
 import Vue from 'vue';
-import { ChartCircleProgress } from '@cutting-mat/widgets';
+import { CircleProgress } from '@cutting-mat/widgets';
 
-Vue.component('circle-progress', ChartCircleProgress);
+Vue.component('circle-progress', CircleProgress);
 ```
 
 ## 代码演示

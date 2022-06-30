@@ -1,16 +1,16 @@
-# BaseWatermark 水印组件
+# 水印组件
 
 ### 介绍
 
-BaseWatermark 是水印组件
+Watermark 组件可以方便的生成前端水印
 
 ### 引入
 
 ```js
 import Vue from 'vue';
-import { BaseWatermark } from '@cutting-mat/widgets';
+import { Watermark } from '@cutting-mat/widgets';
 
-Vue.component('watermark', BaseWatermark);
+Vue.component('watermark', Watermark);
 ```
 
 ## 代码演示

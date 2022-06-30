@@ -4,11 +4,11 @@
 
 ```bash
 # 通过 npm
-npm i widgets
+npm i @cutting-mat/widgets
 
 # 通过 yarn
-yarn add widgets
+yarn add @cutting-mat/widgets
 
 # 通过 pnpm
-pnpm add widgets
+pnpm add @cutting-mat/widgets
 ```
