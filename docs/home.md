@@ -9,3 +9,8 @@
 - 不依赖特定 UI 框架
 - 支持 ES 模块化按需加载
 - ...
+
+### 相关链接
+
+- [Github](https://github.com/cutting-mat/cutting-mat-widgets)
+- [Author](https://refined-x.com)
