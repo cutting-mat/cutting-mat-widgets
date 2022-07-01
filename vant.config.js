@@ -43,10 +43,6 @@ module.exports = {
             path: 'watermark',
             title: '水印',
           },
-          {
-            path: 'scroll-list',
-            title: '滚动列表',
-          },
         ],
       },
       {
@@ -76,6 +72,10 @@ module.exports = {
           {
             path: 'audio-player',
             title: '音频播放(todo)',
+          },
+          {
+            path: 'scroll-list',
+            title: '滚动列表',
           },
         ],
       },
