@@ -1,8 +1,8 @@
-# CircleProgress 按钮
+# CircleProgress 环形进度条组件
 
 ### 介绍
 
-CircleProgress 是一个环形进度条
+CircleProgress 是基于 echarts 封装的环形进度条组件，可以快捷展示一个环形进度条
 
 ### 引入
 

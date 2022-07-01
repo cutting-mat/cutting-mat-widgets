@@ -2,7 +2,7 @@
 
 ### 介绍
 
-一个 HTML5 视频播放器
+基于 videojs 定制的 HTML5 视频播放器，支持 m3u8 视频二次加密、水印、播放进度监听等
 
 ### 引入
 
@@ -30,14 +30,14 @@ Vue.component('video-player', VideoPlayer);
 
 ### Props
 
-| 参数                  | 说明                                                                                               | 类型      | 默认值 |
-| --------------------- | -------------------------------------------------------------------------------------------------- | --------- | ------ |
-| options               | videojs 配置，官方文档：https://videojs.com/getting-started                                        | _Object_  | `-`    |
-| options.CryptoConfig  | 加密配置，详见下方**CryptoConfig**                                                                 | _Object_  | `{}`   |
-| options.RequestOption | HLS 相关请求配置，可自定义请求头或参数等，实现自定义鉴权， 如: `{headers: {Authorization: '123'}}` | _Object_  | `{}`   |
-| seekAble              | 是否可以拖拽快进                                                                                   | _Boolean_ | `true` |
-| subscribeTimes        | 监听一组播放进度，通过 `timeUp` 事件回调，示例：`[{time: 10}]`                                     | _Array_   | `[]`   |
-| watermarkConfig       | [水印组件]()配置，当`watermarkConfig.wmText`或`watermarkConfig.wmImage`有值时将添加水印            | _Object_  | `{}`   |
+| 参数                  | 说明                                                                                                        | 类型      | 默认值 |
+| --------------------- | ----------------------------------------------------------------------------------------------------------- | --------- | ------ |
+| options               | videojs 配置，官方文档：https://videojs.com/getting-started                                                 | _Object_  | `-`    |
+| options.CryptoConfig  | 加密配置，详见下方**CryptoConfig**                                                                          | _Object_  | `{}`   |
+| options.RequestOption | HLS 相关请求配置，可自定义请求头或参数等，实现自定义鉴权， 如: `{headers: {Authorization: '123'}}`          | _Object_  | `{}`   |
+| seekAble              | 是否可以拖拽快进                                                                                            | _Boolean_ | `true` |
+| subscribeTimes        | 监听一组播放进度，通过 `timeUp` 事件回调，可以实现视频弹题。示例：`[{time: 10}]`                            | _Array_   | `[]`   |
+| watermarkConfig       | 水印配置，当`watermarkConfig.wmText`或`watermarkConfig.wmImage`有值时将添加水印，具体配置项参考[水印组件]() | _Object_  | `{}`   |
 
 ### CryptoConfig(加密配置)
 

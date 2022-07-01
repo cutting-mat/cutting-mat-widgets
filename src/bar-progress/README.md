@@ -1,8 +1,8 @@
-# BarProgress 按钮
+# BarProgress 进度条组件
 
 ### 介绍
 
-BarProgress 是横向进度条组件
+BarProgress 是横向进度条组件，可以快捷实现可视化展示中的进度条
 
 ### 引入
 
