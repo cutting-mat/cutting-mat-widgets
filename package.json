@@ -1,6 +1,6 @@
 {
   "name": "@cutting-mat/widgets",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -49,7 +49,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
-    "@tower1229/videojs-plugin-marker": "^0.0.8",
+    "@tower1229/videojs-plugin-marker": "^0.0.9",
     "@tower1229/videojs-plugin-source-switcher": "^0.0.6",
     "@videojs/vhs-utils": "^3.0.5",
     "@videojs/xhr": "^2.6.0",
@@ -68,8 +68,8 @@
     "babel-plugin-import": "^1.13.0",
     "husky": "^7.0.4",
     "is-plain-object": "^5.0.0",
-    "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.11"
+    "vue": "^2.7.8",
+    "vue-template-compiler": "^2.7.8"
   },
   "author": "tower1229@foxmail.com",
   "license": "MIT",
