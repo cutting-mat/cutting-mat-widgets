@@ -6,6 +6,7 @@
       style="width: 100%; height: 100%"
       controlslist="nodownload noremoteplayback"
       oncontextmenu="return false"
+      playsinline
     ></video>
     <watermark v-if="wmTarget" v-bind="watermarkConfig" :target="wmTarget" />
   </div>
@@ -105,6 +106,13 @@ export default {
       playbackRates: [0.5, 1, 1.5, 2],
       language: 'zh-CN',
       fluid: true,
+      html5: {
+        vhs: {
+          overrideNative: true,
+        },
+        nativeAudioTracks: false,
+        nativeVideoTracks: false,
+      },
       ...this.options,
     };
     const player = videojs(this.domID, options, () => {
